@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[关于phpstorm post表单数据无法获取的问题]]></title>
+    <url>%2F2016%2F08%2F23%2F%E5%85%B3%E4%BA%8Ephpstorm-post%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[问题原因 直接用phpstorm 运行PHP的话，他会自带端口，只要把localhost前面的端口去掉就行了。 解决办法 依次进入File -&gt;Settings -&gt;Build,Execution,Deployment -&gt;Deployment 点击右边加号,然后填写Name为localhost，Type为选择In place 然后右边选择Mappings,将Local path选择Apache的htdocsl路径即可 注意事项 运行的php文件必须放在Apache的htdocs文件夹下面，否则Apache无法会报404找不到文件错误]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2016%2F08%2F22%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+</search>
