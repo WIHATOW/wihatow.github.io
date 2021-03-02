@@ -59,6 +59,50 @@
       </tags>
   </entry>
   <entry>
+    <title>Linux终端中sudo显示无法解析主机</title>
+    <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>原因分析  </p>
+</blockquote>
+<p>主要是因为用户在设置中修改了主机名，而本地hosts映射的还是之前的主机名，<br>所以导致无法找到新的主机名。  </p>
+<blockquote>
+<p>解决方法</p>
+</blockquote>
+<p>打开/etc/hosts文件，修改对应的主机名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1       localhost                                 </span><br><span class="line">127.0.1.1       xxx修改后的主机名 <span class="comment">#pc190565-ThinkCentre-M720t-N000，这个是之前的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::1     ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux教程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Object-c处理简单数列求值问题</title>
+    <url>/2016/10/20/Object-c%E5%A4%84%E7%90%86%E7%AE%80%E5%8D%95%E6%95%B0%E5%88%97%E6%B1%82%E5%80%BC%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><hr>
+<p>看到这样的递推公式就可以考虑使用递归来实现数列的求值问题。当然通过递推公式我们比较容易得到:</p>
+<ul>
+<li>f(n) = 2*f(n-1) + f(n-2);</li>
+</ul>
+<p>于是使用递归进行求值：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 1)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return 2*f(n-1) + f(n-2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>当然，并不是所有人通过递推公式都能得到与上面同样的公式，也许他们得到了下面的公式：</p>
+<ul>
+<li>f(n) = f(n+2) - 2*f(n+1)</li>
+</ul>
+<p>当然他们得到的公式并没有错，只不过是从另一个角度进行的推导，但是通过这个公式是无法使用递归得到f(10)的值的。也许有这么一道题：</p>
+<h3 id="已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><p>这样一来就可以使用这个递推公式通过递归的方法得到f(10)的结果了，可以参考一下程序：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 20) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 21)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return f(n+2) - 2*f(n+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Object-c冒泡排序</title>
     <url>/2016/10/20/Object-c%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
     <content><![CDATA[<hr>
@@ -73,6 +117,98 @@
       </categories>
       <tags>
         <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git查看中文文件名乱码问题</title>
+    <url>/2019/11/13/git%E6%9F%A5%E7%9C%8B%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<blockquote>
+<p>执行命令   </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里只修改了当前git仓库，若要全局修改讲local改为global</span></span><br><span class="line">git config --<span class="built_in">local</span> core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改配置   </p>
+</blockquote>
+<p>在当前仓下的.get/config进行如下修改：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加以下配置</span></span><br><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Git配置</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2016/08/22/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git配置sshkey</title>
+    <url>/2019/11/13/git%E9%85%8D%E7%BD%AEsshkey/</url>
+    <content><![CDATA[<blockquote>
+<p>使用命令添加sshkey私钥  </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># xxx为私钥路径</span></span><br><span class="line">ssh-add xxx</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>git配置文件中使用   </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在用户目录下找到.ssh/config，在其中添加如下配置</span></span><br><span class="line">Host *</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Git配置</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mtk刷机解锁root过程</title>
+    <url>/2019/11/13/mtk%E5%88%B7%E6%9C%BA%E8%A7%A3%E9%94%81root%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>刷机工具  </p>
+</blockquote>
+<p>mtk刷机使用flashtool进行，首先需要下载安装，可以去这里下载：<br><a href="http://www.flashtool.net/downloads.php" target="_blank" rel="noopener">http://www.flashtool.net/downloads.php</a>  </p>
+<blockquote>
+<p>刷机  </p>
+</blockquote>
+<p>打开flashtool，选择镜像中的scatter file，类似这种文件：<br>MT6580_Android_scatter.txt，然后点击download，手机关机<br>按住音量下键（有的是上键）并插上USB数据线，看到刷机工具开始走<br>进度后，松开手指，等待刷机完成。</p>
+<blockquote>
+<p>解锁   </p>
+</blockquote>
+<p>这里的解锁指的是bootloader锁。手机开机状态下，打开调试模式，<br>，然后找到oem锁，并打开；用数据线连接到电脑，打开终端，然后<br>按住以下步骤进行：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入fastboot</span></span><br><span class="line">adb reboot bootloader</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待重启进入fastboot后执行</span></span><br><span class="line"><span class="comment"># 解锁命令</span></span><br><span class="line">fastboot flashing unlock</span><br><span class="line"><span class="comment"># 然后根据手机屏幕上的说明进行操作（一般是使用音量键确认和取消）</span></span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">fastboot reboot</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>root   </p>
+</blockquote>
+<p>打开终端，按照以下步骤进行：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 以root方式执行命令</span></span><br><span class="line">adb root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后试着执行</span></span><br><span class="line">adb remount</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若出现类似没有权限的提示，则进行如下操作</span></span><br><span class="line">adb root</span><br><span class="line">adb <span class="built_in">disable</span>-verity</span><br><span class="line">adb reboot</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>MTK教程</category>
+      </categories>
+      <tags>
+        <tag>MTK</tag>
       </tags>
   </entry>
   <entry>
@@ -250,123 +386,6 @@
       </tags>
   </entry>
   <entry>
-    <title>git查看中文文件名乱码问题</title>
-    <url>/2019/11/13/git%E6%9F%A5%E7%9C%8B%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<blockquote>
-<p>执行命令   </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里只修改了当前git仓库，若要全局修改讲local改为global</span></span><br><span class="line">git config --<span class="built_in">local</span> core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改配置   </p>
-</blockquote>
-<p>在当前仓下的.get/config进行如下修改：   </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加以下配置</span></span><br><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Git配置</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux终端中sudo显示无法解析主机</title>
-    <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
-    <content><![CDATA[<blockquote>
-<p>原因分析  </p>
-</blockquote>
-<p>主要是因为用户在设置中修改了主机名，而本地hosts映射的还是之前的主机名，<br>所以导致无法找到新的主机名。  </p>
-<blockquote>
-<p>解决方法</p>
-</blockquote>
-<p>打开/etc/hosts文件，修改对应的主机名</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1       localhost                                 </span><br><span class="line">127.0.1.1       xxx修改后的主机名 <span class="comment">#pc190565-ThinkCentre-M720t-N000，这个是之前的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::1     ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux教程</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2016/08/22/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Object-c处理简单数列求值问题</title>
-    <url>/2016/10/20/Object-c%E5%A4%84%E7%90%86%E7%AE%80%E5%8D%95%E6%95%B0%E5%88%97%E6%B1%82%E5%80%BC%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><hr>
-<p>看到这样的递推公式就可以考虑使用递归来实现数列的求值问题。当然通过递推公式我们比较容易得到:</p>
-<ul>
-<li>f(n) = 2*f(n-1) + f(n-2);</li>
-</ul>
-<p>于是使用递归进行求值：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 1)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return 2*f(n-1) + f(n-2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>当然，并不是所有人通过递推公式都能得到与上面同样的公式，也许他们得到了下面的公式：</p>
-<ul>
-<li>f(n) = f(n+2) - 2*f(n+1)</li>
-</ul>
-<p>当然他们得到的公式并没有错，只不过是从另一个角度进行的推导，但是通过这个公式是无法使用递归得到f(10)的值的。也许有这么一道题：</p>
-<h3 id="已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><p>这样一来就可以使用这个递推公式通过递归的方法得到f(10)的结果了，可以参考一下程序：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 20) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 21)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return f(n+2) - 2*f(n+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>iOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mtk刷机解锁root过程</title>
-    <url>/2019/11/13/mtk%E5%88%B7%E6%9C%BA%E8%A7%A3%E9%94%81root%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<blockquote>
-<p>刷机工具  </p>
-</blockquote>
-<p>mtk刷机使用flashtool进行，首先需要下载安装，可以去这里下载：<br><a href="http://www.flashtool.net/downloads.php" target="_blank" rel="noopener">http://www.flashtool.net/downloads.php</a>  </p>
-<blockquote>
-<p>刷机  </p>
-</blockquote>
-<p>打开flashtool，选择镜像中的scatter file，类似这种文件：<br>MT6580_Android_scatter.txt，然后点击download，手机关机<br>按住音量下键（有的是上键）并插上USB数据线，看到刷机工具开始走<br>进度后，松开手指，等待刷机完成。</p>
-<blockquote>
-<p>解锁   </p>
-</blockquote>
-<p>这里的解锁指的是bootloader锁。手机开机状态下，打开调试模式，<br>，然后找到oem锁，并打开；用数据线连接到电脑，打开终端，然后<br>按住以下步骤进行：   </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入fastboot</span></span><br><span class="line">adb reboot bootloader</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待重启进入fastboot后执行</span></span><br><span class="line"><span class="comment"># 解锁命令</span></span><br><span class="line">fastboot flashing unlock</span><br><span class="line"><span class="comment"># 然后根据手机屏幕上的说明进行操作（一般是使用音量键确认和取消）</span></span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">fastboot reboot</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>root   </p>
-</blockquote>
-<p>打开终端，按照以下步骤进行：   </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 以root方式执行命令</span></span><br><span class="line">adb root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后试着执行</span></span><br><span class="line">adb remount</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若出现类似没有权限的提示，则进行如下操作</span></span><br><span class="line">adb root</span><br><span class="line">adb <span class="built_in">disable</span>-verity</span><br><span class="line">adb reboot</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>MTK教程</category>
-      </categories>
-      <tags>
-        <tag>MTK</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>iOS使用宏定义函数和代码块</title>
     <url>/2018/01/18/iOS%E4%BD%BF%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/</url>
     <content><![CDATA[<h1 id="iOS使用宏定义函数和代码块"><a href="#iOS使用宏定义函数和代码块" class="headerlink" title="iOS使用宏定义函数和代码块"></a>iOS使用宏定义函数和代码块</h1><p>今天在开发过程中碰到一个问题：就是父类中要向外发送通知，然后子类中或者其他类中来接收它。当然一般是把它写到类方法中去，但是有个问题，就是如果调用的类不是它的子类，就不能直接调用，当然也可以采用静态方法实现，我这里主要是想用宏定义来实现，下面我分别介绍使用宏定义函数和定义代码块的方式进行，废话不多说了，直接上代码：</p>
@@ -389,52 +408,6 @@
       </categories>
       <tags>
         <tag>iOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git配置sshkey</title>
-    <url>/2019/11/13/git%E9%85%8D%E7%BD%AEsshkey/</url>
-    <content><![CDATA[<blockquote>
-<p>使用命令添加sshkey私钥  </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># xxx为私钥路径</span></span><br><span class="line">ssh-add xxx</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>git配置文件中使用   </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在用户目录下找到.ssh/config，在其中添加如下配置</span></span><br><span class="line">Host *</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Git配置</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于phpstorm post表单数据无法获取的问题</title>
-    <url>/2016/08/23/%E5%85%B3%E4%BA%8Ephpstorm-post%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<ol>
-<li>问题原因<ul>
-<li>直接用phpstorm 运行PHP的话，他会自带端口，只要把localhost前面的端口去掉就行了。</li>
-</ul>
-</li>
-<li>解决办法<ul>
-<li>依次进入File -&gt;Settings -&gt;Build,Execution,Deployment -&gt;Deployment</li>
-<li>点击右边加号,然后填写Name为localhost，Type为选择In place</li>
-<li>然后右边选择Mappings,将Local path选择Apache的htdocsl路径即可</li>
-</ul>
-</li>
-<li>注意事项<ul>
-<li>运行的php文件必须放在Apache的htdocs文件夹下面，否则Apache无法会报404找不到文件错误</li>
-</ul>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>PHP</tag>
       </tags>
   </entry>
   <entry>
@@ -486,6 +459,48 @@
       </categories>
       <tags>
         <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sqlite中strftime()函数的用法</title>
+    <url>/2016/12/15/sqlite%E4%B8%ADstrftime-%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<h6 id="记下，以后用得着"><a href="#记下，以后用得着" class="headerlink" title="记下，以后用得着"></a>记下，以后用得着</h6><p>strftime()函数可以把YYYY-MM-DD HH:MM:SS格式的日期字符串转换成其它形式的字符串。<br>strftime()的语法是strftime(格式, 日期/时间, 修正符, 修正符, …)</p>
+<p>它可以用以下的符号对日期和时间进行格式化：<br>%d 日期, 01-31<br>%f 小数形式的秒，SS.SSS<br>%H 小时, 00-23<br>%j 算出某一天是该年的第几天，001-366<br>%m 月份，00-12<br>%M 分钟, 00-59<br>%s 从1970年1月1日到现在的秒数<br>%S 秒, 00-59<br>%w 星期, 0-6 (0是星期天)<br>%W 算出某一天属于该年的第几周, 01-53<br>%Y 年, YYYY<br>%% 百分号</p>
+<p>strftime()的用法举例如下：</p>
+<p>select strftime(‘%Y-%m-%d %H:%M:%S’,’now’,’localtime’);<br>结果：2016-12-15 12:43:08<br>其实更好的用法是这样的,比如统,本月或本年的支出:<br>select strftime(‘%Y-%m’,日期) as 月份,sum(支出) as 月支出 from 流水帐 group by 月份;</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于phpstorm post表单数据无法获取的问题</title>
+    <url>/2016/08/23/%E5%85%B3%E4%BA%8Ephpstorm-post%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<ol>
+<li>问题原因<ul>
+<li>直接用phpstorm 运行PHP的话，他会自带端口，只要把localhost前面的端口去掉就行了。</li>
+</ul>
+</li>
+<li>解决办法<ul>
+<li>依次进入File -&gt;Settings -&gt;Build,Execution,Deployment -&gt;Deployment</li>
+<li>点击右边加号,然后填写Name为localhost，Type为选择In place</li>
+<li>然后右边选择Mappings,将Local path选择Apache的htdocsl路径即可</li>
+</ul>
+</li>
+<li>注意事项<ul>
+<li>运行的php文件必须放在Apache的htdocs文件夹下面，否则Apache无法会报404找不到文件错误</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
       </tags>
   </entry>
   <entry>
@@ -587,21 +602,6 @@
       </categories>
       <tags>
         <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>sqlite中strftime()函数的用法</title>
-    <url>/2016/12/15/sqlite%E4%B8%ADstrftime-%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/</url>
-    <content><![CDATA[<h6 id="记下，以后用得着"><a href="#记下，以后用得着" class="headerlink" title="记下，以后用得着"></a>记下，以后用得着</h6><p>strftime()函数可以把YYYY-MM-DD HH:MM:SS格式的日期字符串转换成其它形式的字符串。<br>strftime()的语法是strftime(格式, 日期/时间, 修正符, 修正符, …)</p>
-<p>它可以用以下的符号对日期和时间进行格式化：<br>%d 日期, 01-31<br>%f 小数形式的秒，SS.SSS<br>%H 小时, 00-23<br>%j 算出某一天是该年的第几天，001-366<br>%m 月份，00-12<br>%M 分钟, 00-59<br>%s 从1970年1月1日到现在的秒数<br>%S 秒, 00-59<br>%w 星期, 0-6 (0是星期天)<br>%W 算出某一天属于该年的第几周, 01-53<br>%Y 年, YYYY<br>%% 百分号</p>
-<p>strftime()的用法举例如下：</p>
-<p>select strftime(‘%Y-%m-%d %H:%M:%S’,’now’,’localtime’);<br>结果：2016-12-15 12:43:08<br>其实更好的用法是这样的,比如统,本月或本年的支出:<br>select strftime(‘%Y-%m’,日期) as 月份,sum(支出) as 月支出 from 流水帐 group by 月份;</p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>SQL</tag>
       </tags>
   </entry>
 </search>
