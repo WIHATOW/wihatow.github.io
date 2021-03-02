@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/favicon/safari-pinned-tab.svg" color="#222">
+  <link rel="manifest" href="/images/favicon/site.webmanifest">
+  <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
+  <meta name="baidu-site-verification" content="bgVkIs8ocu">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  
+  <link rel="stylesheet" href="/lib/animate-css/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-center-radar.min.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"wihatow.github.io","root":"/","scheme":"Gemini","version":"8.0.0-rc.4","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":true,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"path":"search.xml"};
+  </script>
+
+
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-8904506239268279",
+      enable_page_level_ads: true
+    });
+  </script>
+
+
+  <meta name="description" content="* 什么是Wsl  * Windows中如果进行交叉编译  * Wsl下有哪些Linux分发版  * 类似平台  * Wsl安装  * Wsl中添加Linux分发版  * Wsl中文件交互  * 修改Linux分发版镜像源  * AOSP代码下载  * AOSP源码编译  * Windows terminal(可选)  * 安装XServer，使用图形化界面  什么是Wsl wsl是适用于 Lin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Win10从认识WSL到成功编译AOSP源码">
+<meta property="og:url" content="https://wihatow.github.io/2020/11/30/Win10%E4%BB%8E%E8%AE%A4%E8%AF%86WSL%E5%88%B0%E6%88%90%E5%8A%9F%E7%BC%96%E8%AF%91AOSP%E6%BA%90%E7%A0%81/index.html">
+<meta property="og:site_name" content="Wihatow&#39;s Blog">
+<meta property="og:description" content="* 什么是Wsl  * Windows中如果进行交叉编译  * Wsl下有哪些Linux分发版  * 类似平台  * Wsl安装  * Wsl中添加Linux分发版  * Wsl中文件交互  * 修改Linux分发版镜像源  * AOSP代码下载  * AOSP源码编译  * Windows terminal(可选)  * 安装XServer，使用图形化界面  什么是Wsl wsl是适用于 Lin">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-30T03:21:16.000Z">
+<meta property="article:modified_time" content="2021-03-02T03:36:18.617Z">
+<meta property="article:author" content="Wihatow">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Wsl">
+<meta property="article:tag" content="AOSP">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://wihatow.github.io/2020/11/30/Win10%E4%BB%8E%E8%AE%A4%E8%AF%86WSL%E5%88%B0%E6%88%90%E5%8A%9F%E7%BC%96%E8%AF%91AOSP%E6%BA%90%E7%A0%81/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Win10从认识WSL到成功编译AOSP源码 | Wihatow's Blog</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cf7e10fdea2240c46a5fdf0a5d265bbc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Wihatow's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">步履维艰，用信念前行！</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+        <li class="menu-item menu-item-music">
+
+    <a href="/music/" rel="section"><i class="fa fa-music fa-fw"></i>music</a>
+
+  </li>
+        <li class="menu-item menu-item-market">
+
+    <a href="/market/" rel="section"><i class="fa fa-shopping-bag fa-fw"></i>market</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Wsl"><span class="nav-number">1.</span> <span class="nav-text">什么是Wsl</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows中如果进行交叉编译"><span class="nav-number">2.</span> <span class="nav-text">Windows中如果进行交叉编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Wsl下有哪些Linux分发版"><span class="nav-number">3.</span> <span class="nav-text">Wsl下有哪些Linux分发版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类似平台"><span class="nav-number">4.</span> <span class="nav-text">类似平台</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Wsl安装"><span class="nav-number">5.</span> <span class="nav-text">Wsl安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Wsl中添加Linux分发版"><span class="nav-number">6.</span> <span class="nav-text">Wsl中添加Linux分发版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Wsl中文件交互"><span class="nav-number">7.</span> <span class="nav-text">Wsl中文件交互</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改Linux分发版镜像源"><span class="nav-number">8.</span> <span class="nav-text">修改Linux分发版镜像源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AOSP代码下载"><span class="nav-number">9.</span> <span class="nav-text">AOSP代码下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AOSP源码编译"><span class="nav-number">10.</span> <span class="nav-text">AOSP源码编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows-terminal-可选"><span class="nav-number">11.</span> <span class="nav-text">Windows terminal(可选)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装XServer，使用图形化界面"><span class="nav-number">12.</span> <span class="nav-text">安装XServer，使用图形化界面</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wihatow"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Wihatow</p>
+  <div class="site-description" itemprop="description">雨落青石鸣，行径人渐稀；<br />蜉蝣情未尽，流水未曾依。<br />群鹤赴庆门，孤鸳尚难飞；<br />落英已缤纷，涛声依旧凉。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button animated">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wihatow" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wihatow" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://blog.csdn.net/wihatow" title="CSDN → http:&#x2F;&#x2F;blog.csdn.net&#x2F;wihatow" rel="noopener" target="_blank"><i class="fa fa-laptop fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/wihatow" title="ZhiHu → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wihatow" rel="noopener" target="_blank"><i class="fa fa-graduation-cap fa-fw"></i>ZhiHu</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wihatow@qq.com" title="E-Mail → mailto:wihatow@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/wihatow" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;wihatow" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://wihatow.github.io/2020/11/30/Win10%E4%BB%8E%E8%AE%A4%E8%AF%86WSL%E5%88%B0%E6%88%90%E5%8A%9F%E7%BC%96%E8%AF%91AOSP%E6%BA%90%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wihatow">
+      <meta itemprop="description" content="雨落青石鸣，行径人渐稀；<br />蜉蝣情未尽，流水未曾依。<br />群鹤赴庆门，孤鸳尚难飞；<br />落英已缤纷，涛声依旧凉。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wihatow's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Win10从认识WSL到成功编译AOSP源码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-30 11:21:16" itemprop="dateCreated datePublished" datetime="2020-11-30T11:21:16+08:00">2020-11-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-02 11:36:18" itemprop="dateModified" datetime="2021-03-02T11:36:18+08:00">2021-03-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AE%89%E5%8D%93%E6%BA%90%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">安卓源码</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Wsl%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Wsl教程</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Wsl%E6%95%99%E7%A8%8B/Linux%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Linux教程</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/30/Win10%E4%BB%8E%E8%AE%A4%E8%AF%86WSL%E5%88%B0%E6%88%90%E5%8A%9F%E7%BC%96%E8%AF%91AOSP%E6%BA%90%E7%A0%81/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/30/Win10%E4%BB%8E%E8%AE%A4%E8%AF%86WSL%E5%88%B0%E6%88%90%E5%8A%9F%E7%BC%96%E8%AF%91AOSP%E6%BA%90%E7%A0%81/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li><a href="#什么是wsl">什么是Wsl</a></li>
+<li><a href="#windows中如果进行交叉编译">Windows中如果进行交叉编译</a></li>
+<li><a href="#wsl下有哪些linux分发版">Wsl下有哪些Linux分发版</a></li>
+<li><a href="#类似平台">类似平台</a></li>
+<li><a href="#wsl安装">Wsl安装</a></li>
+<li><a href="#wsl中添加linux分发版">Wsl中添加Linux分发版</a></li>
+<li><a href="#wsl中文件交互">Wsl中文件交互</a></li>
+<li><a href="#修改linux分发版镜像源">修改Linux分发版镜像源</a></li>
+<li><a href="#aosp代码下载">AOSP代码下载</a></li>
+<li><a href="#aosp源码编译">AOSP源码编译</a></li>
+<li><a href="#windows-terminal可选">Windows terminal(可选)</a></li>
+<li><a href="#安装xserver使用图形化界面">安装XServer，使用图形化界面</a></li>
+</ul>
+<h1 id="什么是Wsl"><a href="#什么是Wsl" class="headerlink" title="什么是Wsl"></a>什么是Wsl</h1><p>wsl是适用于 Linux 的 Windows 子系统,它可让开发人员按原样运行 GNU/Linux 环境 - 包括大多数命令行工具、实用工具和应用程序 - 且不会产生传统虚拟机或双启动设置开销。<br>更多关于Wsl，请<a href="https://docs.microsoft.com/zh-cn/windows/wsl/" target="_blank" rel="noopener">移步到这里</a></p>
+<p>Wsl可以：</p>
+<ul>
+<li>在 Microsoft Store 中选择你偏好的 GNU/Linux 分发版。</li>
+<li>运行常用的命令行软件工具（例如 grep、sed、awk）或其他 ELF-64 二进制文件。</li>
+<li>运行 Bash shell 脚本和 GNU/Linux 命令行应用程序，包括：</li>
+<li>工具：vim、emacs、tmux</li>
+<li>语言：NodeJS、Javascript、Python、Ruby、C/ C++、C# 与 F#、Rust、Go 等。</li>
+<li>服务：SSHD、MySQL、Apache、lighttpd、MongoDB、PostgreSQL。</li>
+<li>使用自己的 GNU/Linux 分发包管理器安装其他软件。</li>
+<li>使用类似于 Unix 的命令行 shell 调用 Windows 应用程序。</li>
+<li>在 Windows 上调用 GNU/Linux 应用程序。</li>
+</ul>
+<h1 id="Windows中如果进行交叉编译"><a href="#Windows中如果进行交叉编译" class="headerlink" title="Windows中如果进行交叉编译"></a>Windows中如果进行交叉编译</h1><p>之前我们开发嵌入式或者进行安装系统开发时，大多数都会选择安装Linux系统，因为大多数嵌入式开发均采用的是安卓的平台，而安卓是基于Linux内核的，所以使用Linux开发嵌入式，有着不可替代的优势。</p>
+<p>但是完全在Linux下开发和工作，也会存在一定的不方便。例如部分产品的刷机工具或者工作必须工具软件是没有Linux端的，所以在Linux下我们是不能够正常使用的它们的。有些朋友会说，Linux下使用Wine它不香吗？或者安装Deepin，也可以安装虚拟机呀。</p>
+<p>而我要说的是，Linux下安装Wine它确实不香呀！另外安装虚拟机也不方便，一方面占用系统资源严重，另外对应文件交互也不是很方便。Deepin虽然说也挺不错的，但是支持的软件还是有限。那么针对这些问题，Wsl就可以完全解决你的烦恼。</p>
+<h1 id="Wsl下有哪些Linux分发版"><a href="#Wsl下有哪些Linux分发版" class="headerlink" title="Wsl下有哪些Linux分发版"></a>Wsl下有哪些Linux分发版</h1><p>Wsl目前支持以下Linux分发版：</p>
+<ul>
+<li>Ubuntu 20.04</li>
+<li>Ubuntu 20.04 ARM</li>
+<li>Ubuntu 18.04</li>
+<li>Ubuntu 18.04 ARM</li>
+<li>Ubuntu 16.04</li>
+<li>Debian GNU/Linux</li>
+<li>Kali Linux</li>
+<li>OpenSUSE Leap 42</li>
+<li>SUSE Linux Enterprise Server 12</li>
+<li>Fedora Remix for WSL</li>
+</ul>
+<h1 id="类似平台"><a href="#类似平台" class="headerlink" title="类似平台"></a>类似平台</h1><p>multipass是一个小型的虚拟机，支持Linux，MacOS以及Windows平台，它和Wsl比较类似，占用资源较传统虚拟机大大减少，有兴趣的朋友可以去了解下：<a href="https://multipass.run/" target="_blank" rel="noopener">https://multipass.run/</a></p>
+<h1 id="Wsl安装"><a href="#Wsl安装" class="headerlink" title="Wsl安装"></a>Wsl安装</h1><ul>
+<li>步骤 1 - 启用适用于 Linux 的 Windows 子系统</li>
+</ul>
+<p>需要先启用“适用于 Linux 的 Windows 子系统”可选功能，然后才能在 Windows 上安装 Linux 分发。<br>以管理员身份打开 PowerShell 并运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /<span class="built_in">enable</span>-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启用虚拟机功能</li>
+</ul>
+<p>以管理员身份打开 PowerShell 并运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dism.exe /online /<span class="built_in">enable</span>-feature /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>下载 Linux 内核更新包</li>
+</ul>
+<p>移步这里下载并安装：<br><a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" target="_blank" rel="noopener">https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi</a></p>
+<p>完成后重启电脑。</p>
+<h1 id="Wsl中添加Linux分发版"><a href="#Wsl中添加Linux分发版" class="headerlink" title="Wsl中添加Linux分发版"></a>Wsl中添加Linux分发版</h1><p>Wsl支持从Windows store、命令、安装包安装Linux分发版本，这里主要介绍安装包和store安装方式：</p>
+<ul>
+<li><p>从Windows store安装</p>
+<ul>
+<li><a href="https://www.microsoft.com/store/apps/9pjn388hp8c9" target="_blank" rel="noopener">Ubuntu 16.04 LTS</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9N9TNGVNDL3Q" target="_blank" rel="noopener">Ubuntu 18.04 LTS</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9n6svws3rx71" target="_blank" rel="noopener">Ubuntu 20.04 LTS</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9NJFZK00FGKV" target="_blank" rel="noopener">openSUSE Leap 15.1</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9MZ3D1TRP8T1" target="_blank" rel="noopener">SUSE Linux Enterprise Server 12 SP5</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9PN498VPMF3Z" target="_blank" rel="noopener">SUSE Linux Enterprise Server 15 SP1</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9PKR34TNCV07" target="_blank" rel="noopener">Kali Linux</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9MSVKQC78PK6" target="_blank" rel="noopener">Debian GNU/Linux</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9n6gdm4k2hnc" target="_blank" rel="noopener">Fedora Remix for WSL</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9NV1GV1PXZ6P" target="_blank" rel="noopener">Pengwin</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9N8LP0X93VCP" target="_blank" rel="noopener">Pengwin Enterprise</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9p804crf0395" target="_blank" rel="noopener">Alpine WSL</a></li>
+</ul>
+</li>
+</ul>
+<p>点击下载成功后，直接双击安装，更多安装信息请<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10" target="_blank" rel="noopener">移步这里</a></p>
+<ul>
+<li><p>安装包安装</p>
+<ul>
+<li><a href="https://aka.ms/wslubuntu2004" target="_blank" rel="noopener">Ubuntu 20.04</a></li>
+<li><a href="https://aka.ms/wslubuntu2004arm" target="_blank" rel="noopener">Ubuntu 20.04 ARM</a></li>
+<li><a href="https://aka.ms/wsl-ubuntu-1804" target="_blank" rel="noopener">Ubuntu 18.04</a></li>
+<li><a href="https://aka.ms/wsl-ubuntu-1804-arm" target="_blank" rel="noopener">Ubuntu 18.04 ARM</a></li>
+<li><a href="https://aka.ms/wsl-ubuntu-1604" target="_blank" rel="noopener">Ubuntu 16.04</a></li>
+<li><a href="https://aka.ms/wsl-debian-gnulinux" target="_blank" rel="noopener">Debian GNU/Linux</a></li>
+<li><a href="https://aka.ms/wsl-kali-linux-new" target="_blank" rel="noopener">Kali Linux</a></li>
+<li><a href="https://aka.ms/wsl-opensuse-42" target="_blank" rel="noopener">OpenSUSE Leap 42</a></li>
+<li><a href="https://aka.ms/wsl-sles-12" target="_blank" rel="noopener">SUSE Linux Enterprise Server 12</a></li>
+<li><a href="https://github.com/WhitewaterFoundry/WSLFedoraRemix/releases/" target="_blank" rel="noopener">Fedora Remix for WSL</a></li>
+</ul>
+</li>
+</ul>
+<p>点击下载成功后，直接双击安装，更多安装信息请<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-manual" target="_blank" rel="noopener">移步这里</a></p>
+<h1 id="Wsl中文件交互"><a href="#Wsl中文件交互" class="headerlink" title="Wsl中文件交互"></a>Wsl中文件交互</h1><p>Wsl中的Linux分发版会自动将Windows磁盘挂载到/mnt/下，比如C盘会挂载为/mnt/c。从Windows中也可以很方便的访问Linux分发版的文件，只需打开\wsl$，就可以看到相应的分发版了。</p>
+<h1 id="修改Linux分发版镜像源"><a href="#修改Linux分发版镜像源" class="headerlink" title="修改Linux分发版镜像源"></a>修改Linux分发版镜像源</h1><p>由于默认镜像源访问速度较慢，推荐修改为清华镜像源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.ubuntu</span><br><span class="line">sudo vi /etc/apt/sources.list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后粘贴以下内容，保存退出</span></span><br><span class="line"><span class="comment"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 预发布软件源，不建议启用</span></span><br><span class="line"><span class="comment"># deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse</span></span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#之后，执行</span></span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<p>更多详细请<a href="https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/" target="_blank" rel="noopener">移步这里</a></p>
+<h1 id="AOSP代码下载"><a href="#AOSP代码下载" class="headerlink" title="AOSP代码下载"></a>AOSP代码下载</h1><p>关于这块儿的介绍，大家可以去我之前的一篇文章中查看：<a href="/2019/03/10/%E5%9B%BD%E5%86%85Android%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AE/" title="国内Android源码下载编译配置">国内Android源码下载编译配置</a></p>
+<p>因为repo下载需要Python环境，分发版为Ubuntu20.04LTS自带的Python为3.x，所以需要安装2.x的Python</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python</span><br><span class="line"><span class="comment"># 若报错请返回上节修改镜像源</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启用文件名大小写敏感</li>
+</ul>
+<p>Windows文件或者文件夹时不区分大小写的，比如你之前有一个文件名为aa.txt，那么你是没办法再在相同目录下创建AA.txt，Aa.txt，aA.txt文件的。<br>当然了，Windows是可以支持区分大小写的，我们只需执行以下命令并传入你需要区分大小写的文件夹就可以了，另外，<u><font color="#f00"><strong><em>你没办法递归方式进行修改，但是如果你在启用大小写后新添加的目录或者文件，它会自动继承父文件夹的大小写敏感的</em></strong></font></u>。</p>
+<p>使用管理员权限在当前文件夹打开PowerShell，输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsutil.exe file setCaseSensitiveInfo D:\Linux <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+
+<p>如果，你在拉代码的时候发现类似如下报错，说明你没有启用大小写敏感：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ERROR]  Your file system <span class="keyword">in</span> xxx is *not* <span class="keyword">case</span>-sensitive!</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加ssh-key时报错解决</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ssh-add xxx</span><br><span class="line">Could not open a connection to your authentication agent.</span><br><span class="line"><span class="comment"># 只需执行以下命令，然后重新执行以上命令：</span></span><br><span class="line">ssh-agent bash</span><br><span class="line"></span><br><span class="line">ssh-add xxx</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line"><span class="comment"># 说明你的ssh-key的权限太大了，需要缩写，执行以下命令既可解决：</span></span><br><span class="line">sudo chmod 0600 xxx</span><br></pre></td></tr></table></figure>
+
+<h1 id="AOSP源码编译"><a href="#AOSP源码编译" class="headerlink" title="AOSP源码编译"></a>AOSP源码编译</h1><p>由于Linux分发版中缺少一些模块，会导致编译失败，这里罗列出来，请大家提前安装（这里笔者的环境为：Win10专业版 1903，内核版本：18362.449，Linux分发版本为Ubuntu-20.04 LTS）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install zip unzip m4 make libtinfo5 libncurses5 libncurses5-dev libssl-dev</span><br><span class="line"><span class="comment"># 因为20.04不支持32位程序，所以需要安装以下工具：</span></span><br><span class="line">sudo apt install qemu-user-static</span><br><span class="line">sudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic <span class="string">'\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00'</span> --mask <span class="string">'\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff'</span></span><br><span class="line"><span class="comment"># 以后每次启动Linux分发都需要执行以下命令启动对应服务</span></span><br><span class="line">sudo service binfmt-support start</span><br><span class="line"><span class="comment"># 没有上述安装或者没有启动service，会报如下错误：</span></span><br><span class="line">cannot execute binary file: Exec format error</span><br><span class="line"></span><br><span class="line">sudo dpkg --add-architecture i386</span><br><span class="line">sudo apt update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里gcc安装64位的</span></span><br><span class="line">sudo apt install gcc</span><br><span class="line"></span><br><span class="line"><span class="comment">#若出现如下报错，请安装成gcc:i386，然后再将其卸载掉，否则后面编译Linux内核是过不了的</span></span><br><span class="line"><span class="string">'/lib/ld-linux.so.2'</span>: No such file or directory</span><br><span class="line">sudo apt install gcc:i386</span><br><span class="line">sudo apt-get remove gcc:i386</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装g++，不安装的话，报这个错：</span></span><br><span class="line">Pccts/h/pccts_stdio.h:5:10: fatal error: <span class="string">'cstdio'</span> file not found</span><br><span class="line">sudo apt install g++</span><br><span class="line"></span><br><span class="line"><span class="comment"># 报错：fatal error: bits/libc-header-start.h</span></span><br><span class="line">sudo apt-get install gcc-multilib</span><br><span class="line">sudo apt-get install g++-multilib</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>编译可能的报错：</p>
+<ul>
+<li><p>报错1：<br>fixdep: error fstat‘ing depfile: scripts/basic/.fixdep.d: Value too large for defined data type<br>make[2]: *** [scripts/Makefile.host:102: scripts/basic/fixdep] Error 2<br>make[2]: *** Deleting file ‘scripts/basic/fixdep’</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改kernel\msm-4.14\scripts\basic\fixdep.c，在导入sys/stat.h之前添加下面这个宏定义，修改效果如下：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define _FILE_OFFSET_BITS 64</span></span><br><span class="line"><span class="comment">#include &lt;sys/types.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;sys/stat.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者如同报错2解决方式</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>报错2</p>
+<p>scripts/kconfig/conf  –silentoldconfig Kconfig<br>***<br>*** Configuration file “.config” not found!<br>***<br>*** Please run some configurator (e.g. “make oldconfig” or<br>*** “make menuconfig” or “make xconfig”).<br>***<br>make[3]: *** [/mnt/e/Workspaces/Ecarx/Codes/qc8155-CS2-20201013/aosp-caf/kernel/msm-4.14/scripts/kconfig/Makefile:40: silentoldconfig] Error 1<br>make[2]: *** [/mnt/e/Workspaces/Ecarx/Codes/qc8155-CS2-20201013/aosp-caf/kernel/msm-4.14/Makefile:544: silentoldconfig] Error 2<br>make[1]: *** No rule to make target ‘include/config/auto.conf’, needed by ‘include/config/kernel.release’.  Stop.<br>make[1]: Leaving directory ‘/mnt/e/Workspaces/Ecarx/Codes/qc8155-CS2-20201013/aosp-caf/out/target/product/kx11_high/obj/kernel/msm-4.14’<br>make: *** [Makefile:146: sub-make] Error 2<br>make: Leaving directory ‘/mnt/e/Workspaces/Ecarx/Codes/qc8155-CS2-20201013/aosp-caf/kernel/msm-4.14’</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这个报错应该是gcc的架构不对，需要64位的而本地安装了32位的</span></span><br><span class="line">sudo apt-get purge gcc:i386</span><br><span class="line">sudo apt-get autoremove</span><br><span class="line">sudo apt-get install gcc</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>报错3</p>
+<p>dex2oatd F art/dex2oat/dex2oat.cc] dex2oat did not finish after 2850 seconds<br>Zygote loaded classes=10594 post zygote classes=28<br>Intern table: 84066 strong; 0 weak<br>JNI: CheckJNI is off; globals=49 (plus 28 weak)<br>Libraries:  (0)<br>Heap: 99% free, 19KB/64MB; dex2oatd F 11-29 23:29:21 24310 24317 thread_list.cc:771] Timed out waiting for threads to suspend, waited for 50.000s<br>Runtime aborting…<br>Dumping all threads without appropriate locks held: thread list lock mutator lock</p>
+<p><strong>解决方法1</strong>，<font color=#0ff><strong><em>不推荐</em></strong></font></p>
+<p>针对出错的项目关闭odex生成，找到编译不过去的app或jar包的mk文件，加上<br>LOCAL_DEX_PREOPT := false<br>  缺点：只能一个一个去找，去添加，较麻烦</p>
+<p><strong><em>解决方法2</em></strong>，<font color=#0f0><strong><em>推荐</em></strong></font></p>
+<p>如果是boot.jar出现这个问题<br>在build\make\core\dex_preopt_libart_boot.mk文件中找到DEX2OAT在其后追加-j1，使用单线程编译odex，类似如下修改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@rm -f $(dir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)LIBART_TARGET_BOOT_OAT_UNSTRIPPED))/*.oat</span><br><span class="line">$(DEX2OAT) -j1 --runtime-arg -Xms$(DEX2OAT_IMAGE_XMS) \</span><br><span class="line">  --runtime-arg -Xmx$(DEX2OAT_IMAGE_XMX) \</span><br></pre></td></tr></table></figure>
+
+<p>如果是某个app出现这个问题<br>在build\make\core\dex_preopt_libart.mk文件中找到DEX2OAT在其后追加-j1，使用单线程编译odex,类似如下修改：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(hide) mkdir -p $(dir $(2))</span><br><span class="line">$(hide) ANDROID_LOG_TAGS=<span class="string">"*:e"</span> $(DEX2OAT) -j1 \</span><br><span class="line">--runtime-arg -Xms$(DEX2OAT_XMS) --runtime-arg -Xmx$(DEX2OAT_XMX) \</span><br><span class="line">--class-loader-context=$(DEX2OAT_CLASS_LOADER_CONTEXT) \</span><br></pre></td></tr></table></figure>
+
+<p>也可使用变量判断当前HOST_CROSS_OS变量是否为windows，如果是的话使用单线程编译<br>因为这编译这类文件的数量不多，因此不用担心影响总体编译效率</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Windows-terminal-可选"><a href="#Windows-terminal-可选" class="headerlink" title="Windows terminal(可选)"></a>Windows terminal(可选)</h1><p>Windows 终端是一个面向命令行工具和 shell（如命令提示符、PowerShell 和适用于 Linux 的 Windows 子系统 (WSL)）用户的新式终端应用程序。 它的主要功能包括多个选项卡、窗格、Unicode 和 UTF-8 字符支持、GPU 加速文本呈现引擎，你还可用它来创建你自己的主题并自定义文本、颜色、背景和快捷方式。</p>
+<p>点击这里直接下载双击安装即可：<br><a href="https://github.com/microsoft/terminal/releases/download/v1.4.3243.0/Microsoft.WindowsTerminal_1.4.3243.0_8wekyb3d8bbwe.msixbundle" target="_blank" rel="noopener">Windows terminal</a></p>
+<p>更多详细介绍请<a href="https://docs.microsoft.com/zh-cn/windows/terminal/" target="_blank" rel="noopener">移步这里</a></p>
+<h1 id="安装XServer，使用图形化界面"><a href="#安装XServer，使用图形化界面" class="headerlink" title="安装XServer，使用图形化界面"></a>安装XServer，使用图形化界面</h1><p>有的朋友可能对于Linux的字符界面操作并不熟悉，所以使用起来可能是比较费劲的，所以就想问Wsl是否支持图形化界面的使用的呢？答案是：<strong><em>支持：</em></strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install xfce4 xrdp xorg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置xrdp,修改端口号</span></span><br><span class="line">sudo sed -i <span class="string">'s/port=3389/port=3390/g'</span> /etc/xrdp/xrdp.ini</span><br><span class="line"></span><br><span class="line"><span class="comment">#向xsession中写入xfce4-session</span></span><br><span class="line">sudo <span class="built_in">echo</span> xfce4-session &gt;~/.xsession</span><br><span class="line"></span><br><span class="line"><span class="comment">#重启xrdp服务</span></span><br><span class="line">sudo service xrdp restart</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果有防火墙，允许就好了，然后使用Windows的远程桌面进行连接，连接地址输入：localhost:3390即可。</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="document.getElementById('post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div id="post-reward">
+      
+      <div>
+        <img src="/images/wechatpay.png" alt="Wihatow 微信">
+        <p>微信</p>
+      </div>
+      
+      <div>
+        <img src="/images/alipay.jpg" alt="Wihatow 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Wihatow
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://wihatow.github.io/2020/11/30/Win10%E4%BB%8E%E8%AE%A4%E8%AF%86WSL%E5%88%B0%E6%88%90%E5%8A%9F%E7%BC%96%E8%AF%91AOSP%E6%BA%90%E7%A0%81/" title="Win10从认识WSL到成功编译AOSP源码">https://wihatow.github.io/2020/11/30/Win10从认识WSL到成功编译AOSP源码/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/tags/Wsl/" rel="tag"><i class="fa fa-tag"></i> Wsl</a>
+              <a href="/tags/AOSP/" rel="tag"><i class="fa fa-tag"></i> AOSP</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/13/git%E6%9F%A5%E7%9C%8B%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/" rel="prev" title="git查看中文文件名乱码问题">
+      <i class="fa fa-chevron-left"></i> git查看中文文件名乱码问题
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wihatow</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">23k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">21 分钟</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279111884&web_id=1279111884"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/dipkv6sfhmmsqxdgyckymcwx4bqeabzb.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    new Valine(Object.assign({
+      el  : '#valine-comments',
+      path: location.pathname,
+    }, {"enable":true,"appId":"gdLj34Bs9wxy7Lh4jv8yhqpu-gzGzoHsz","appKey":"cdfwwb99RUFY7a92w4vgiKkX","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"language":null,"visitor":false,"comment_count":true,"recordIP":true,"serverURLs":null}
+    ));
+  }, window.Valine);
+});
+</script>
+
+
+  
+  
+    
+      <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+<script src="/js/cursor/anime.min.js"></script>
+
+<script src="/js/cursor/explosion.min.js"></script>
+
+    
+  
+  
+
+  
+  
+    <script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="/js/canvas-nest.js"></script>
+  
+  
+
+  
+  
+<script src="/js/three/three.min.js"></script>
+
+    
+<script src="/js/three/three-waves.min.js"></script>
+
+    
+  
+  
+</body>
+</html>

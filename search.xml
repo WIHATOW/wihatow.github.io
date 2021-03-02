@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Linux中文件查找</title>
+    <url>/2019/11/08/Linux%E4%B8%AD%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE/</url>
+    <content><![CDATA[<blockquote>
+<p>从目录中匹配文件名  </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find | grep xxxx</span><br></pre></td></tr></table></figure>
+
+<p>xxx文件需要匹配的关键字</p>
+<blockquote>
+<p>从目录中匹配文件内容</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -nr xxxx</span><br></pre></td></tr></table></figure>
+
+<p>xxx为文件内容的关键字</p>
+<blockquote>
+<p>从目录中匹配文件名，然后再从匹配结果中匹配文件内容</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find | grep xxx | grep -nr ***</span><br></pre></td></tr></table></figure>
+
+<p>xxx为文件名匹配关键字，***为文件内容匹配关键字</p>
+]]></content>
+      <categories>
+        <category>Linux教程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux之间共享与挂在配置</title>
+    <url>/2019/11/08/Linux%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E4%B8%8E%E6%8C%82%E5%9C%A8%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<blockquote>
+<p>使用scp传输文件  </p>
+</blockquote>
+<p>首先需要安装openssh-server，执行以下命令：  </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install openssh-server</span><br></pre></td></tr></table></figure>
+
+<p>然后使用scp命令：  </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 下载文件（夹），-r参数是拷贝整个文件夹，pc190565为远端用户名</span></span><br><span class="line">scp -r pc190565@xxx（ip地址）:xxx(文件路径) xxx(本地路径)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 上传文件（夹）</span></span><br><span class="line">scp -r xxx(本地文件路径) pc190565@xxx（ip地址）：xxx（存放路径）</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用samba共享文件  </p>
+</blockquote>
+<p>首先，安装samba共享服务,然后添加共享配置：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装服务</span></span><br><span class="line">sudo apt-get install samba</span><br><span class="line"></span><br><span class="line"><span class="comment"># 共享服务中添加用户</span></span><br><span class="line">sudo smbpasswd -a xxx（用户名）</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开/etc/samba/smb.conf,添加以下内容，pc190565为用户名</span></span><br><span class="line">[pc190565]</span><br><span class="line">    path = /home/pc190565</span><br><span class="line">    writable = yes</span><br><span class="line">    valid users = pc190565</span><br><span class="line">    create mask = 0755</span><br><span class="line">    directory mode = 0755</span><br><span class="line">    available = yes</span><br><span class="line">    browseable = yes      </span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问,安装samba客户端</span></span><br><span class="line">sudo apt-get install smbclient</span><br><span class="line"></span><br><span class="line"><span class="comment"># 访问，如共享/home/pc190565,则以下的共享名为190565</span></span><br><span class="line">smbclient ip/xxx(共享名) -U 用户名%密码</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>挂载共享</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装cifs工具</span></span><br><span class="line">sudo apt install cifs-utils</span><br><span class="line"></span><br><span class="line"><span class="comment"># 挂载，以下xxx为ip，***为用户名，@@@为密码,如共享/home/pc190565,则以下的共享名为190565</span></span><br><span class="line">sudo mount //xxx/共享名 /本地挂载的文件夹（需要创建） -t cifs -o username=***,password=@@@,rw,vers=2.0,dir_mode=0777,file_mode=0777 --verbose</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux教程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Object-c冒泡排序</title>
+    <url>/2016/10/20/Object-c%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<hr>
+<p>排序算法有好多中：选择排序、快速排序、希尔排序、堆排序等等，这里主要是简单的实现Object-c下的冒泡排序，这里添加了一个变量hasSwap，在大多数排序中可以减少部分判断次数，另外在交换的时候使用了点技巧，可以减少一个变量。</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;冒泡排序</span><br><span class="line">void bubbleSort(int *nums,int length)&#123;</span><br><span class="line">    BOOL hasSwap &#x3D; YES;</span><br><span class="line">    for (int i&#x3D;0; i&lt;length &amp;&amp; hasSwap; i++) &#123;</span><br><span class="line">        hasSwap &#x3D; NO;</span><br><span class="line">        for (int j&#x3D;0; j&lt;length-1-i; j++) &#123;</span><br><span class="line">            if (nums[j] &gt; nums[j+1]) &#123;</span><br><span class="line">                nums[j] &#x3D; nums[j] + nums[j+1];</span><br><span class="line">                nums[j+1] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                nums[j] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                hasSwap &#x3D; YES;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Win10从认识WSL到成功编译AOSP源码</title>
+    <url>/2020/11/30/Win10%E4%BB%8E%E8%AE%A4%E8%AF%86WSL%E5%88%B0%E6%88%90%E5%8A%9F%E7%BC%96%E8%AF%91AOSP%E6%BA%90%E7%A0%81/</url>
+    <content><![CDATA[<ul>
+<li><a href="#什么是wsl">什么是Wsl</a></li>
+<li><a href="#windows中如果进行交叉编译">Windows中如果进行交叉编译</a></li>
+<li><a href="#wsl下有哪些linux分发版">Wsl下有哪些Linux分发版</a></li>
+<li><a href="#类似平台">类似平台</a></li>
+<li><a href="#wsl安装">Wsl安装</a></li>
+<li><a href="#wsl中添加linux分发版">Wsl中添加Linux分发版</a></li>
+<li><a href="#wsl中文件交互">Wsl中文件交互</a></li>
+<li><a href="#修改linux分发版镜像源">修改Linux分发版镜像源</a></li>
+<li><a href="#aosp代码下载">AOSP代码下载</a></li>
+<li><a href="#aosp源码编译">AOSP源码编译</a></li>
+<li><a href="#windows-terminal可选">Windows terminal(可选)</a></li>
+<li><a href="#安装xserver使用图形化界面">安装XServer，使用图形化界面</a></li>
+</ul>
+<h1 id="什么是Wsl"><a href="#什么是Wsl" class="headerlink" title="什么是Wsl"></a>什么是Wsl</h1><p>wsl是适用于 Linux 的 Windows 子系统,它可让开发人员按原样运行 GNU/Linux 环境 - 包括大多数命令行工具、实用工具和应用程序 - 且不会产生传统虚拟机或双启动设置开销。<br>更多关于Wsl，请<a href="https://docs.microsoft.com/zh-cn/windows/wsl/" target="_blank" rel="noopener">移步到这里</a></p>
+<p>Wsl可以：</p>
+<ul>
+<li>在 Microsoft Store 中选择你偏好的 GNU/Linux 分发版。</li>
+<li>运行常用的命令行软件工具（例如 grep、sed、awk）或其他 ELF-64 二进制文件。</li>
+<li>运行 Bash shell 脚本和 GNU/Linux 命令行应用程序，包括：</li>
+<li>工具：vim、emacs、tmux</li>
+<li>语言：NodeJS、Javascript、Python、Ruby、C/ C++、C# 与 F#、Rust、Go 等。</li>
+<li>服务：SSHD、MySQL、Apache、lighttpd、MongoDB、PostgreSQL。</li>
+<li>使用自己的 GNU/Linux 分发包管理器安装其他软件。</li>
+<li>使用类似于 Unix 的命令行 shell 调用 Windows 应用程序。</li>
+<li>在 Windows 上调用 GNU/Linux 应用程序。</li>
+</ul>
+<h1 id="Windows中如果进行交叉编译"><a href="#Windows中如果进行交叉编译" class="headerlink" title="Windows中如果进行交叉编译"></a>Windows中如果进行交叉编译</h1><p>之前我们开发嵌入式或者进行安装系统开发时，大多数都会选择安装Linux系统，因为大多数嵌入式开发均采用的是安卓的平台，而安卓是基于Linux内核的，所以使用Linux开发嵌入式，有着不可替代的优势。</p>
+<p>但是完全在Linux下开发和工作，也会存在一定的不方便。例如部分产品的刷机工具或者工作必须工具软件是没有Linux端的，所以在Linux下我们是不能够正常使用的它们的。有些朋友会说，Linux下使用Wine它不香吗？或者安装Deepin，也可以安装虚拟机呀。</p>
+<p>而我要说的是，Linux下安装Wine它确实不香呀！另外安装虚拟机也不方便，一方面占用系统资源严重，另外对应文件交互也不是很方便。Deepin虽然说也挺不错的，但是支持的软件还是有限。那么针对这些问题，Wsl就可以完全解决你的烦恼。</p>
+<h1 id="Wsl下有哪些Linux分发版"><a href="#Wsl下有哪些Linux分发版" class="headerlink" title="Wsl下有哪些Linux分发版"></a>Wsl下有哪些Linux分发版</h1><p>Wsl目前支持以下Linux分发版：</p>
+<ul>
+<li>Ubuntu 20.04</li>
+<li>Ubuntu 20.04 ARM</li>
+<li>Ubuntu 18.04</li>
+<li>Ubuntu 18.04 ARM</li>
+<li>Ubuntu 16.04</li>
+<li>Debian GNU/Linux</li>
+<li>Kali Linux</li>
+<li>OpenSUSE Leap 42</li>
+<li>SUSE Linux Enterprise Server 12</li>
+<li>Fedora Remix for WSL</li>
+</ul>
+<h1 id="类似平台"><a href="#类似平台" class="headerlink" title="类似平台"></a>类似平台</h1><p>multipass是一个小型的虚拟机，支持Linux，MacOS以及Windows平台，它和Wsl比较类似，占用资源较传统虚拟机大大减少，有兴趣的朋友可以去了解下：<a href="https://multipass.run/" target="_blank" rel="noopener">https://multipass.run/</a></p>
+<h1 id="Wsl安装"><a href="#Wsl安装" class="headerlink" title="Wsl安装"></a>Wsl安装</h1><ul>
+<li>步骤 1 - 启用适用于 Linux 的 Windows 子系统</li>
+</ul>
+<p>需要先启用“适用于 Linux 的 Windows 子系统”可选功能，然后才能在 Windows 上安装 Linux 分发。<br>以管理员身份打开 PowerShell 并运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dism.exe /online /<span class="built_in">enable</span>-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启用虚拟机功能</li>
+</ul>
+<p>以管理员身份打开 PowerShell 并运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dism.exe /online /<span class="built_in">enable</span>-feature /featurename:VirtualMachinePlatform /all /norestart</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>下载 Linux 内核更新包</li>
+</ul>
+<p>移步这里下载并安装：<br><a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" target="_blank" rel="noopener">https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi</a></p>
+<p>完成后重启电脑。</p>
+<h1 id="Wsl中添加Linux分发版"><a href="#Wsl中添加Linux分发版" class="headerlink" title="Wsl中添加Linux分发版"></a>Wsl中添加Linux分发版</h1><p>Wsl支持从Windows store、命令、安装包安装Linux分发版本，这里主要介绍安装包和store安装方式：</p>
+<ul>
+<li><p>从Windows store安装</p>
+<ul>
+<li><a href="https://www.microsoft.com/store/apps/9pjn388hp8c9" target="_blank" rel="noopener">Ubuntu 16.04 LTS</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9N9TNGVNDL3Q" target="_blank" rel="noopener">Ubuntu 18.04 LTS</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9n6svws3rx71" target="_blank" rel="noopener">Ubuntu 20.04 LTS</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9NJFZK00FGKV" target="_blank" rel="noopener">openSUSE Leap 15.1</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9MZ3D1TRP8T1" target="_blank" rel="noopener">SUSE Linux Enterprise Server 12 SP5</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9PN498VPMF3Z" target="_blank" rel="noopener">SUSE Linux Enterprise Server 15 SP1</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9PKR34TNCV07" target="_blank" rel="noopener">Kali Linux</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9MSVKQC78PK6" target="_blank" rel="noopener">Debian GNU/Linux</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9n6gdm4k2hnc" target="_blank" rel="noopener">Fedora Remix for WSL</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9NV1GV1PXZ6P" target="_blank" rel="noopener">Pengwin</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9N8LP0X93VCP" target="_blank" rel="noopener">Pengwin Enterprise</a></li>
+<li><a href="https://www.microsoft.com/store/apps/9p804crf0395" target="_blank" rel="noopener">Alpine WSL</a></li>
+</ul>
+</li>
+</ul>
+<p>点击下载成功后，直接双击安装，更多安装信息请<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10" target="_blank" rel="noopener">移步这里</a></p>
+<ul>
+<li><p>安装包安装</p>
+<ul>
+<li><a href="https://aka.ms/wslubuntu2004" target="_blank" rel="noopener">Ubuntu 20.04</a></li>
+<li><a href="https://aka.ms/wslubuntu2004arm" target="_blank" rel="noopener">Ubuntu 20.04 ARM</a></li>
+<li><a href="https://aka.ms/wsl-ubuntu-1804" target="_blank" rel="noopener">Ubuntu 18.04</a></li>
+<li><a href="https://aka.ms/wsl-ubuntu-1804-arm" target="_blank" rel="noopener">Ubuntu 18.04 ARM</a></li>
+<li><a href="https://aka.ms/wsl-ubuntu-1604" target="_blank" rel="noopener">Ubuntu 16.04</a></li>
+<li><a href="https://aka.ms/wsl-debian-gnulinux" target="_blank" rel="noopener">Debian GNU/Linux</a></li>
+<li><a href="https://aka.ms/wsl-kali-linux-new" target="_blank" rel="noopener">Kali Linux</a></li>
+<li><a href="https://aka.ms/wsl-opensuse-42" target="_blank" rel="noopener">OpenSUSE Leap 42</a></li>
+<li><a href="https://aka.ms/wsl-sles-12" target="_blank" rel="noopener">SUSE Linux Enterprise Server 12</a></li>
+<li><a href="https://github.com/WhitewaterFoundry/WSLFedoraRemix/releases/" target="_blank" rel="noopener">Fedora Remix for WSL</a></li>
+</ul>
+</li>
+</ul>
+<p>点击下载成功后，直接双击安装，更多安装信息请<a href="https://docs.microsoft.com/zh-cn/windows/wsl/install-manual" target="_blank" rel="noopener">移步这里</a></p>
+<h1 id="Wsl中文件交互"><a href="#Wsl中文件交互" class="headerlink" title="Wsl中文件交互"></a>Wsl中文件交互</h1><p>Wsl中的Linux分发版会自动将Windows磁盘挂载到/mnt/下，比如C盘会挂载为/mnt/c。从Windows中也可以很方便的访问Linux分发版的文件，只需打开\wsl$，就可以看到相应的分发版了。</p>
+<h1 id="修改Linux分发版镜像源"><a href="#修改Linux分发版镜像源" class="headerlink" title="修改Linux分发版镜像源"></a>修改Linux分发版镜像源</h1><p>由于默认镜像源访问速度较慢，推荐修改为清华镜像源：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.ubuntu</span><br><span class="line">sudo vi /etc/apt/sources.list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后粘贴以下内容，保存退出</span></span><br><span class="line"><span class="comment"># 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse</span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 预发布软件源，不建议启用</span></span><br><span class="line"><span class="comment"># deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse</span></span><br><span class="line"><span class="comment"># deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-proposed main restricted universe multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#之后，执行</span></span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<p>更多详细请<a href="https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/" target="_blank" rel="noopener">移步这里</a></p>
+<h1 id="AOSP代码下载"><a href="#AOSP代码下载" class="headerlink" title="AOSP代码下载"></a>AOSP代码下载</h1><p>关于这块儿的介绍，大家可以去我之前的一篇文章中查看：<a href="/2019/03/10/%E5%9B%BD%E5%86%85Android%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AE/" title="国内Android源码下载编译配置">国内Android源码下载编译配置</a></p>
+<p>因为repo下载需要Python环境，分发版为Ubuntu20.04LTS自带的Python为3.x，所以需要安装2.x的Python</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install python</span><br><span class="line"><span class="comment"># 若报错请返回上节修改镜像源</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启用文件名大小写敏感</li>
+</ul>
+<p>Windows文件或者文件夹时不区分大小写的，比如你之前有一个文件名为aa.txt，那么你是没办法再在相同目录下创建AA.txt，Aa.txt，aA.txt文件的。<br>当然了，Windows是可以支持区分大小写的，我们只需执行以下命令并传入你需要区分大小写的文件夹就可以了，另外，<u><font color="#f00"><strong><em>你没办法递归方式进行修改，但是如果你在启用大小写后新添加的目录或者文件，它会自动继承父文件夹的大小写敏感的</em></strong></font></u>。</p>
+<p>使用管理员权限在当前文件夹打开PowerShell，输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">fsutil.exe file setCaseSensitiveInfo D:\Linux <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+
+<p>如果，你在拉代码的时候发现类似如下报错，说明你没有启用大小写敏感：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[ERROR]  Your file system <span class="keyword">in</span> xxx is *not* <span class="keyword">case</span>-sensitive!</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>添加ssh-key时报错解决</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-add xxx</span><br><span class="line">Could not open a connection to your authentication agent.</span><br><span class="line"><span class="comment"># 只需执行以下命令，然后重新执行以上命令：</span></span><br><span class="line">ssh-agent bash</span><br><span class="line"></span><br><span class="line">ssh-add xxx</span><br><span class="line">It is required that your private key files are NOT accessible by others.</span><br><span class="line"><span class="comment"># 说明你的ssh-key的权限太大了，需要缩写，执行以下命令既可解决：</span></span><br><span class="line">sudo chmod 0600 xxx</span><br></pre></td></tr></table></figure>
+
+<h1 id="AOSP源码编译"><a href="#AOSP源码编译" class="headerlink" title="AOSP源码编译"></a>AOSP源码编译</h1><p>由于Linux分发版中缺少一些模块，会导致编译失败，这里罗列出来，请大家提前安装（这里笔者的环境为：Win10专业版 1903，内核版本：18362.449，Linux分发版本为Ubuntu-20.04 LTS）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install zip unzip m4 make libtinfo5 libncurses5 libncurses5-dev libssl-dev</span><br><span class="line"><span class="comment"># 因为20.04不支持32位程序，所以需要安装以下工具：</span></span><br><span class="line">sudo apt install qemu-user-static</span><br><span class="line">sudo update-binfmts --install i386 /usr/bin/qemu-i386-static --magic <span class="string">'\x7fELF\x01\x01\x01\x03\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x03\x00\x01\x00\x00\x00'</span> --mask <span class="string">'\xff\xff\xff\xff\xff\xff\xff\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xf8\xff\xff\xff\xff\xff\xff\xff'</span></span><br><span class="line"><span class="comment"># 以后每次启动Linux分发都需要执行以下命令启动对应服务</span></span><br><span class="line">sudo service binfmt-support start</span><br><span class="line"><span class="comment"># 没有上述安装或者没有启动service，会报如下错误：</span></span><br><span class="line">cannot execute binary file: Exec format error</span><br><span class="line"></span><br><span class="line">sudo dpkg --add-architecture i386</span><br><span class="line">sudo apt update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里gcc安装64位的</span></span><br><span class="line">sudo apt install gcc</span><br><span class="line"></span><br><span class="line"><span class="comment">#若出现如下报错，请安装成gcc:i386，然后再将其卸载掉，否则后面编译Linux内核是过不了的</span></span><br><span class="line"><span class="string">'/lib/ld-linux.so.2'</span>: No such file or directory</span><br><span class="line">sudo apt install gcc:i386</span><br><span class="line">sudo apt-get remove gcc:i386</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装g++，不安装的话，报这个错：</span></span><br><span class="line">Pccts/h/pccts_stdio.h:5:10: fatal error: <span class="string">'cstdio'</span> file not found</span><br><span class="line">sudo apt install g++</span><br><span class="line"></span><br><span class="line"><span class="comment"># 报错：fatal error: bits/libc-header-start.h</span></span><br><span class="line">sudo apt-get install gcc-multilib</span><br><span class="line">sudo apt-get install g++-multilib</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>编译可能的报错：</p>
+<ul>
+<li><p>报错1：<br>fixdep: error fstat‘ing depfile: scripts/basic/.fixdep.d: Value too large for defined data type<br>make[2]: *** [scripts/Makefile.host:102: scripts/basic/fixdep] Error 2<br>make[2]: *** Deleting file ‘scripts/basic/fixdep’</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 修改kernel\msm-4.14\scripts\basic\fixdep.c，在导入sys/stat.h之前添加下面这个宏定义，修改效果如下：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#define _FILE_OFFSET_BITS 64</span></span><br><span class="line"><span class="comment">#include &lt;sys/types.h&gt;</span></span><br><span class="line"><span class="comment">#include &lt;sys/stat.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者如同报错2解决方式</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>报错2</p>
+<p>scripts/kconfig/conf  –silentoldconfig Kconfig<br>***<br>*** Configuration file “.config” not found!<br>***<br>*** Please run some configurator (e.g. “make oldconfig” or<br>*** “make menuconfig” or “make xconfig”).<br>***<br>make[3]: *** [/mnt/e/Workspaces/Ecarx/Codes/qc8155-CS2-20201013/aosp-caf/kernel/msm-4.14/scripts/kconfig/Makefile:40: silentoldconfig] Error 1<br>make[2]: *** [/mnt/e/Workspaces/Ecarx/Codes/qc8155-CS2-20201013/aosp-caf/kernel/msm-4.14/Makefile:544: silentoldconfig] Error 2<br>make[1]: *** No rule to make target ‘include/config/auto.conf’, needed by ‘include/config/kernel.release’.  Stop.<br>make[1]: Leaving directory ‘/mnt/e/Workspaces/Ecarx/Codes/qc8155-CS2-20201013/aosp-caf/out/target/product/kx11_high/obj/kernel/msm-4.14’<br>make: *** [Makefile:146: sub-make] Error 2<br>make: Leaving directory ‘/mnt/e/Workspaces/Ecarx/Codes/qc8155-CS2-20201013/aosp-caf/kernel/msm-4.14’</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这个报错应该是gcc的架构不对，需要64位的而本地安装了32位的</span></span><br><span class="line">sudo apt-get purge gcc:i386</span><br><span class="line">sudo apt-get autoremove</span><br><span class="line">sudo apt-get install gcc</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>报错3</p>
+<p>dex2oatd F art/dex2oat/dex2oat.cc] dex2oat did not finish after 2850 seconds<br>Zygote loaded classes=10594 post zygote classes=28<br>Intern table: 84066 strong; 0 weak<br>JNI: CheckJNI is off; globals=49 (plus 28 weak)<br>Libraries:  (0)<br>Heap: 99% free, 19KB/64MB; dex2oatd F 11-29 23:29:21 24310 24317 thread_list.cc:771] Timed out waiting for threads to suspend, waited for 50.000s<br>Runtime aborting…<br>Dumping all threads without appropriate locks held: thread list lock mutator lock</p>
+<p><strong>解决方法1</strong>，<font color=#0ff><strong><em>不推荐</em></strong></font></p>
+<p>针对出错的项目关闭odex生成，找到编译不过去的app或jar包的mk文件，加上<br>LOCAL_DEX_PREOPT := false<br>  缺点：只能一个一个去找，去添加，较麻烦</p>
+<p><strong><em>解决方法2</em></strong>，<font color=#0f0><strong><em>推荐</em></strong></font></p>
+<p>如果是boot.jar出现这个问题<br>在build\make\core\dex_preopt_libart_boot.mk文件中找到DEX2OAT在其后追加-j1，使用单线程编译odex，类似如下修改：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">@rm -f $(dir $($(PRIVATE_2ND_ARCH_VAR_PREFIX)LIBART_TARGET_BOOT_OAT_UNSTRIPPED))/*.oat</span><br><span class="line">$(DEX2OAT) -j1 --runtime-arg -Xms$(DEX2OAT_IMAGE_XMS) \</span><br><span class="line">  --runtime-arg -Xmx$(DEX2OAT_IMAGE_XMX) \</span><br></pre></td></tr></table></figure>
+
+<p>如果是某个app出现这个问题<br>在build\make\core\dex_preopt_libart.mk文件中找到DEX2OAT在其后追加-j1，使用单线程编译odex,类似如下修改：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$(hide) mkdir -p $(dir $(2))</span><br><span class="line">$(hide) ANDROID_LOG_TAGS=<span class="string">"*:e"</span> $(DEX2OAT) -j1 \</span><br><span class="line">--runtime-arg -Xms$(DEX2OAT_XMS) --runtime-arg -Xmx$(DEX2OAT_XMX) \</span><br><span class="line">--class-loader-context=$(DEX2OAT_CLASS_LOADER_CONTEXT) \</span><br></pre></td></tr></table></figure>
+
+<p>也可使用变量判断当前HOST_CROSS_OS变量是否为windows，如果是的话使用单线程编译<br>因为这编译这类文件的数量不多，因此不用担心影响总体编译效率</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Windows-terminal-可选"><a href="#Windows-terminal-可选" class="headerlink" title="Windows terminal(可选)"></a>Windows terminal(可选)</h1><p>Windows 终端是一个面向命令行工具和 shell（如命令提示符、PowerShell 和适用于 Linux 的 Windows 子系统 (WSL)）用户的新式终端应用程序。 它的主要功能包括多个选项卡、窗格、Unicode 和 UTF-8 字符支持、GPU 加速文本呈现引擎，你还可用它来创建你自己的主题并自定义文本、颜色、背景和快捷方式。</p>
+<p>点击这里直接下载双击安装即可：<br><a href="https://github.com/microsoft/terminal/releases/download/v1.4.3243.0/Microsoft.WindowsTerminal_1.4.3243.0_8wekyb3d8bbwe.msixbundle" target="_blank" rel="noopener">Windows terminal</a></p>
+<p>更多详细介绍请<a href="https://docs.microsoft.com/zh-cn/windows/terminal/" target="_blank" rel="noopener">移步这里</a></p>
+<h1 id="安装XServer，使用图形化界面"><a href="#安装XServer，使用图形化界面" class="headerlink" title="安装XServer，使用图形化界面"></a>安装XServer，使用图形化界面</h1><p>有的朋友可能对于Linux的字符界面操作并不熟悉，所以使用起来可能是比较费劲的，所以就想问Wsl是否支持图形化界面的使用的呢？答案是：<strong><em>支持：</em></strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install xfce4 xrdp xorg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置xrdp,修改端口号</span></span><br><span class="line">sudo sed -i <span class="string">'s/port=3389/port=3390/g'</span> /etc/xrdp/xrdp.ini</span><br><span class="line"></span><br><span class="line"><span class="comment">#向xsession中写入xfce4-session</span></span><br><span class="line">sudo <span class="built_in">echo</span> xfce4-session &gt;~/.xsession</span><br><span class="line"></span><br><span class="line"><span class="comment">#重启xrdp服务</span></span><br><span class="line">sudo service xrdp restart</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果有防火墙，允许就好了，然后使用Windows的远程桌面进行连接，连接地址输入：localhost:3390即可。</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>安卓源码</category>
+        <category>Wsl教程</category>
+        <category>Linux教程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Wsl</tag>
+        <tag>AOSP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git查看中文文件名乱码问题</title>
+    <url>/2019/11/13/git%E6%9F%A5%E7%9C%8B%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<blockquote>
+<p>执行命令   </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里只修改了当前git仓库，若要全局修改讲local改为global</span></span><br><span class="line">git config --<span class="built_in">local</span> core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改配置   </p>
+</blockquote>
+<p>在当前仓下的.get/config进行如下修改：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加以下配置</span></span><br><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Git配置</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux终端中sudo显示无法解析主机</title>
+    <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>原因分析  </p>
+</blockquote>
+<p>主要是因为用户在设置中修改了主机名，而本地hosts映射的还是之前的主机名，<br>所以导致无法找到新的主机名。  </p>
+<blockquote>
+<p>解决方法</p>
+</blockquote>
+<p>打开/etc/hosts文件，修改对应的主机名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1       localhost                                 </span><br><span class="line">127.0.1.1       xxx修改后的主机名 <span class="comment">#pc190565-ThinkCentre-M720t-N000，这个是之前的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::1     ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux教程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2016/08/22/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Object-c处理简单数列求值问题</title>
+    <url>/2016/10/20/Object-c%E5%A4%84%E7%90%86%E7%AE%80%E5%8D%95%E6%95%B0%E5%88%97%E6%B1%82%E5%80%BC%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><hr>
+<p>看到这样的递推公式就可以考虑使用递归来实现数列的求值问题。当然通过递推公式我们比较容易得到:</p>
+<ul>
+<li>f(n) = 2*f(n-1) + f(n-2);</li>
+</ul>
+<p>于是使用递归进行求值：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 1)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return 2*f(n-1) + f(n-2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>当然，并不是所有人通过递推公式都能得到与上面同样的公式，也许他们得到了下面的公式：</p>
+<ul>
+<li>f(n) = f(n+2) - 2*f(n+1)</li>
+</ul>
+<p>当然他们得到的公式并没有错，只不过是从另一个角度进行的推导，但是通过这个公式是无法使用递归得到f(10)的值的。也许有这么一道题：</p>
+<h3 id="已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><p>这样一来就可以使用这个递推公式通过递归的方法得到f(10)的结果了，可以参考一下程序：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 20) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 21)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return f(n+2) - 2*f(n+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mtk刷机解锁root过程</title>
+    <url>/2019/11/13/mtk%E5%88%B7%E6%9C%BA%E8%A7%A3%E9%94%81root%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>刷机工具  </p>
+</blockquote>
+<p>mtk刷机使用flashtool进行，首先需要下载安装，可以去这里下载：<br><a href="http://www.flashtool.net/downloads.php" target="_blank" rel="noopener">http://www.flashtool.net/downloads.php</a>  </p>
+<blockquote>
+<p>刷机  </p>
+</blockquote>
+<p>打开flashtool，选择镜像中的scatter file，类似这种文件：<br>MT6580_Android_scatter.txt，然后点击download，手机关机<br>按住音量下键（有的是上键）并插上USB数据线，看到刷机工具开始走<br>进度后，松开手指，等待刷机完成。</p>
+<blockquote>
+<p>解锁   </p>
+</blockquote>
+<p>这里的解锁指的是bootloader锁。手机开机状态下，打开调试模式，<br>，然后找到oem锁，并打开；用数据线连接到电脑，打开终端，然后<br>按住以下步骤进行：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入fastboot</span></span><br><span class="line">adb reboot bootloader</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待重启进入fastboot后执行</span></span><br><span class="line"><span class="comment"># 解锁命令</span></span><br><span class="line">fastboot flashing unlock</span><br><span class="line"><span class="comment"># 然后根据手机屏幕上的说明进行操作（一般是使用音量键确认和取消）</span></span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">fastboot reboot</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>root   </p>
+</blockquote>
+<p>打开终端，按照以下步骤进行：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 以root方式执行命令</span></span><br><span class="line">adb root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后试着执行</span></span><br><span class="line">adb remount</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若出现类似没有权限的提示，则进行如下操作</span></span><br><span class="line">adb root</span><br><span class="line">adb <span class="built_in">disable</span>-verity</span><br><span class="line">adb reboot</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>MTK教程</category>
+      </categories>
+      <tags>
+        <tag>MTK</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>iOS使用宏定义函数和代码块</title>
+    <url>/2018/01/18/iOS%E4%BD%BF%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/</url>
+    <content><![CDATA[<h1 id="iOS使用宏定义函数和代码块"><a href="#iOS使用宏定义函数和代码块" class="headerlink" title="iOS使用宏定义函数和代码块"></a>iOS使用宏定义函数和代码块</h1><p>今天在开发过程中碰到一个问题：就是父类中要向外发送通知，然后子类中或者其他类中来接收它。当然一般是把它写到类方法中去，但是有个问题，就是如果调用的类不是它的子类，就不能直接调用，当然也可以采用静态方法实现，我这里主要是想用宏定义来实现，下面我分别介绍使用宏定义函数和定义代码块的方式进行，废话不多说了，直接上代码：</p>
+<ul>
+<li>使用宏定义函数实现</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;定义</span><br><span class="line">#define SendNotification @&quot;SendNotification&quot;</span><br><span class="line">#define sendMessage(msg) \</span><br><span class="line">(&#123;\</span><br><span class="line">dispatch_async(dispatch_get_main_queue(), ^&#123;\</span><br><span class="line">    NSNotificationCenter* notificationCenter &#x3D; [NSNotificationCenter defaultCenter];\</span><br><span class="line">    [notificationCenter postNotificationName:SendNotification object:nil userInfo:@&#123;@&quot;msg&quot;:msg&#125;];\</span><br><span class="line">    &#125;);\</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line">sendMessage(@&quot;发个消息试试&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;有返回的宏函数定义</span><br><span class="line">#define getSum(a,b) \</span><br><span class="line">(&#123;\</span><br><span class="line">(a+b);\</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line">double sum &#x3D; getSum(M_PI,M_E);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用宏定义代码块实现</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;定义</span><br><span class="line">#define SendNotification @&quot;SendNotification&quot;</span><br><span class="line">#define sendMessage(msg) \</span><br><span class="line">^()&#123;\</span><br><span class="line">    dispatch_async(dispatch_get_main_queue(), ^&#123;\</span><br><span class="line">        NSNotificationCenter* notificationCenter &#x3D; [NSNotificationCenter defaultCenter];\</span><br><span class="line">        [notificationCenter postNotificationName:SendNotification object:nil userInfo:@&#123;@&quot;msg&quot;:msg&#125;];\</span><br><span class="line">    &#125;);\</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line">sendMessage(@&quot;发个消息试试&quot;);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;有返回的宏代码块定义</span><br><span class="line">#define getSum(a,b)\</span><br><span class="line">^()&#123;\</span><br><span class="line">    return a+b;\</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;使用</span><br><span class="line">double sum &#x3D; getSum(M_PI,M_E);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>写在最后，当时写的时候，想到了使用宏定义的方式，但是在网上找了一圈没有找到怎么使用宏来定义代码块和函数，于是自己通过尝试实现了，所以在这里Mark一下，希望能够帮到遇到同样问题的人，也为了以后自己忘了能够查到。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git配置sshkey</title>
+    <url>/2019/11/13/git%E9%85%8D%E7%BD%AEsshkey/</url>
+    <content><![CDATA[<blockquote>
+<p>使用命令添加sshkey私钥  </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># xxx为私钥路径</span></span><br><span class="line">ssh-add xxx</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>git配置文件中使用   </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在用户目录下找到.ssh/config，在其中添加如下配置</span></span><br><span class="line">Host *</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Git配置</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于phpstorm post表单数据无法获取的问题</title>
+    <url>/2016/08/23/%E5%85%B3%E4%BA%8Ephpstorm-post%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<ol>
+<li>问题原因<ul>
+<li>直接用phpstorm 运行PHP的话，他会自带端口，只要把localhost前面的端口去掉就行了。</li>
+</ul>
+</li>
+<li>解决办法<ul>
+<li>依次进入File -&gt;Settings -&gt;Build,Execution,Deployment -&gt;Deployment</li>
+<li>点击右边加号,然后填写Name为localhost，Type为选择In place</li>
+<li>然后右边选择Mappings,将Local path选择Apache的htdocsl路径即可</li>
+</ul>
+</li>
+<li>注意事项<ul>
+<li>运行的php文件必须放在Apache的htdocs文件夹下面，否则Apache无法会报404找不到文件错误</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Eureka将Node.js引入Spring Cloud</title>
+    <url>/2016/12/22/%E4%BD%BF%E7%94%A8Eureka%E5%B0%86Node.js%E5%BC%95%E5%85%A5Spring%20Cloud/</url>
+    <content><![CDATA[<ul>
+<li><p>简介</p>
+<ul>
+<li>Spring Cloud是目前非常流行的微服务化解决方案，它将Spring Boot的便捷开发和Netflix OSS的丰富解决方案结合起来。如我们所知，Spring Cloud不同于Dubbo，使用的是基于HTTP(s)的Rest服务来构建整个服务体系。</li>
+<li>Eureka是Netflix开发的服务发现框架，SpringCloud将它集成在自己的子项目spring-cloud-netflix中，实现SpringCloud的服务发现功能。</li>
+</ul>
+</li>
+<li><p>服务端配置（Java）</p>
+<ul>
+<li>application.properties<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">server.port=<span class="number">1111</span></span><br><span class="line">eureka.instance.hostname=localhost</span><br><span class="line">spring.application.name=localhost</span><br><span class="line">eureka.client.register-<span class="keyword">with</span>-eureka=<span class="literal">true</span></span><br><span class="line">eureka.client.fetch-registry=<span class="literal">true</span></span><br><span class="line">eureka.client.serviceUrl.defaultZone=http:<span class="comment">//$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br></pre></td></tr></table></figure></li>
+<li>pom.xml  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.didispace<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Spring Cloud project<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>Brixton.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>Application.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.didispace;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.builder.SpringApplicationBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> SpringApplicationBuilder(Application<span class="class">.<span class="keyword">class</span>).<span class="title">web</span>(<span class="title">true</span>).<span class="title">run</span>(<span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Node.js配置</p>
+<ul>
+<li><p>安装eureka-client</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install eureka-client --save</span><br></pre></td></tr></table></figure></li>
+<li><p>安装express</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install express --save</span><br></pre></td></tr></table></figure></li>
+<li><p>注册服务</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Eureka = <span class="built_in">require</span>(<span class="string">'eureka-client'</span>).Eureka;</span><br><span class="line"><span class="keyword">const</span> client = <span class="keyword">new</span> Eureka(&#123;</span><br><span class="line">    instance: &#123;</span><br><span class="line">        app: <span class="string">'PhoneQ'</span>,</span><br><span class="line">        hostName: <span class="string">'localhost'</span>,</span><br><span class="line">        ipAddr: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        statusPageUrl: <span class="string">'http://localhost:3333'</span>,</span><br><span class="line">        port: &#123;</span><br><span class="line">            <span class="string">'$'</span>: <span class="number">3333</span>,</span><br><span class="line">            <span class="string">'@enabled'</span>: <span class="string">'true'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        vipAddress: <span class="string">'test.something.com'</span>,</span><br><span class="line">        dataCenterInfo: &#123;</span><br><span class="line">            <span class="string">'@class'</span>: <span class="string">'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo'</span>,</span><br><span class="line">            name: <span class="string">'MyOwn'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    eureka: &#123;</span><br><span class="line">        serviceUrl: [<span class="string">'http://localhost:1111/eureka/apps/'</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">client.start(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error || <span class="string">'Node server register completed'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li><p>使用express挂起服务</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.get(<span class="string">'/health'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    res.json(&#123;</span><br><span class="line">        status: <span class="string">'UP'</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.get(<span class="string">'/'</span>, (req, res, next) =&gt; &#123;</span><br><span class="line">    res.json(&#123;<span class="attr">status</span>: <span class="literal">true</span>,<span class="attr">message</span>:<span class="string">"It's works!"</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.listen(<span class="number">3333</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>测试Eureka服务</p>
+<p>启动Eureka服务，在浏览器输入<a href="http://localhost:1111/，看到类似下面的图片即说明服务成功开启：" target="_blank" rel="noopener">http://localhost:1111/，看到类似下面的图片即说明服务成功开启：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI0NzIwOTM5?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+</li>
+<li><p>使用Node.js注册</p>
+<p>将上面Node.js注册服务部分代码保存到index.js，然后开启终端输入：node index.js，看到类似下面的结果说明服务成功注册：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MTQ1NDMw?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+</li>
+<li><p>查看注册服务</p>
+<p>浏览器输入<a href="http://localhost:1111/，可以看到服务已经成功注册了：" target="_blank" rel="noopener">http://localhost:1111/，可以看到服务已经成功注册了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MzU2MjEz?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+</li>
+<li><p>测试express服务</p>
+<p>浏览器输入<a href="http://localhost:3333，可以看到服务已经挂起来了：">http://localhost:3333，可以看到服务已经挂起来了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1NjI0Mjky?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+<p>至此，Node.js成功引入Spring Cloud，看到这里的你也赶快动手试试吧，祝你成功！</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>国内Android源码下载编译配置</title>
+    <url>/2019/03/10/%E5%9B%BD%E5%86%85Android%E6%BA%90%E7%A0%81%E4%B8%8B%E8%BD%BD%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>好久之前就想着下载安卓源码了，但是一直没有时间，也没有比较稳定的资源。梯子很是不稳定，速度也不行，所以一直拖着。直到最近换工作了，主要是做framework层的东西，所以又燃起了研究源码的兴趣，于是网上查了一通，失败过，但是很庆幸的是最终我成功了，特来次记录下来，以备不时之需。下面，我以Mac系统为例，介绍源码下载和编译过程。</p>
+<h1 id="配置repo"><a href="#配置repo" class="headerlink" title="配置repo"></a>配置repo</h1><ul>
+<li><p>下载repo</p>
+<p>  首先，新建目录，用来存放repo脚本：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir ~/bin</span><br><span class="line">curl https://storage.googleapis.com/git-repo-downloads/repo &gt; ~/bin/repo</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果以上地址无法访问，请使用下面地址下载</span></span><br><span class="line">curl https://mirrors.tuna.tsinghua.edu.cn/git/git-repo -o ~/bin/repo</span><br></pre></td></tr></table></figure></li>
+<li><p>配置环境变量</p>
+<p>  这里主要是吧下载下来的repo脚本添加到环境变量里面，为了后面使用方面，编辑~/.bash_profile，在其中添加如下脚本。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export REPO=~/bin</span><br><span class="line">export PATH=$PATH:$REPO</span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure></li>
+<li><p>添加执行权限<br>  主要是给repo脚本添加执行权限，否则无法执行脚本。配置好后终端输入repo发现可以显示帮助信息，说明配置成功了。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod a+x ~/bin/repo</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h1><p>   这里主要是使用repo脚本来初始化仓库信息，后面可以通过初始化后的仓库信息来下载源码。获取Google最新代码仓库：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">repo init -u https://aosp.tuna.tsinghua.edu.cn/platform/manifest</span><br></pre></td></tr></table></figure>
+<p>   如果需要下载指定版本的安卓源码，可以到<a href="https://source.android.com/source/build-numbers.html#source-code-tags-and-builds" target="_blank" rel="noopener">这里查看版本信息</a>，比如下载4.0.1的代码：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">repo init -u https://aosp.tuna.tsinghua.edu.cn/platform/manifest -b android-4.0.1_r1</span><br></pre></td></tr></table></figure>
+<h1 id="获取源码"><a href="#获取源码" class="headerlink" title="获取源码"></a>获取源码</h1><p>   仓库初始化成功后，就可以进行代码拉取了，需要说明的是，安卓源码的仓库比较大，现在最新的应该有200多个G了，所以要预留好空间，以免下载到最后因为空间不足而失败。全仓拉取大码,更新代码也用这个命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">repo sync</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者仅仅需要拉取某一个模块的代码，例如，只拉取framework的源码</span></span><br><span class="line">repo sync frameworks/base</span><br><span class="line"><span class="meta">#</span><span class="bash"> 具体的小的仓库名称，可以到工作目录下的.repo/manifest.xml中查看</span></span><br></pre></td></tr></table></figure>
+<p>   源码拉取一般时间比较长，建议选择晚上进行，设置好电脑别休眠了，早上起来应该就下载好了。</p>
+<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><ul>
+<li><p>加载命令<br>  使用如下命令加载编译指令（envsetup.sh文件存放在Android源代码根目录下的build目录下）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd build</span><br><span class="line">source envsetup.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里主要加载的命令有：</span></span><br><span class="line">function help()  # 显示帮助信息</span><br><span class="line">function get_abs_build_var()　　　　　　　　　　　# 获取绝对变量</span><br><span class="line">function get_build_var()　　　　　　　　　　　　　# 获取绝对变量</span><br><span class="line">function check_product()　　　　　　　　　　　　　# 检查product</span><br><span class="line">function check_variant()　　　　　　　　　　　　　# 检查变量</span><br><span class="line">function setpaths()　　　　　　　　　　　　 # 设置文件路径</span><br><span class="line">function printconfig()　　　　　　　　　　　　　　# 打印配置</span><br><span class="line">function set_stuff_for_environment()　　　　　　  # 设置环境变量</span><br><span class="line">function set_sequence_number()　　　　　　　　    # 设置序号</span><br><span class="line">function settitle()　　　　　　　　　　　　　　　 # 设置标题</span><br><span class="line">function choosetype()　　　　　　　　　　　　　　 # 设置type</span><br><span class="line">function chooseproduct()　　　　　　　　　　　　  # 设置product</span><br><span class="line">function choosevariant()　　　　　　　　　　　　  # 设置variant</span><br><span class="line">function tapas()　　　　　　　　　　　　　　　　  # 功能同choosecombo</span><br><span class="line">function choosecombo()　　　　　　　　　　　　　  # 设置编译参数</span><br><span class="line">function add_lunch_combo()　　　　　　　　　　　  # 添加lunch项目</span><br><span class="line">function print_lunch_menu()　　　　　　　　　　　 # 打印lunch列表</span><br><span class="line">function lunch()　　　　　　　　　　　　　　　　　# 配置lunch</span><br><span class="line">function m()　　　　　　　　　　　　　　　　　　　# make from top</span><br><span class="line">function findmakefile()　　　　　　　　　　　　　 # 查找makefile</span><br><span class="line">function mm()　　　　　　　　　　　　　　　　　　 # make from current directory</span><br><span class="line">function mmm()　　　　　　　　　　　　　　　　　  # make the supplied directories</span><br><span class="line">function croot()　　　　　　　　　　　　　　　　　# 回到根目录</span><br><span class="line">function cproj()</span><br><span class="line">function pid()</span><br><span class="line">function systemstack()</span><br><span class="line">function gdbclient()</span><br><span class="line">function jgrep()　　　　　　　　　　　　　　　　　# 查找java文件</span><br><span class="line">function cgrep()　　　　　　　　　　　　　　　　  # 查找c/cpp文件</span><br><span class="line">function resgrep()</span><br><span class="line">function tracedmdump()</span><br><span class="line">function runhat()</span><br><span class="line">function getbugreports()</span><br><span class="line">function startviewserver()</span><br><span class="line">function stopviewserver()</span><br><span class="line">function isviewserverstarted()</span><br><span class="line">function smoketest()</span><br><span class="line">function runtest()</span><br><span class="line">function godir () 　　　　　　　　　　　　　　　　# 跳到指定目录 405</span><br></pre></td></tr></table></figure></li>
+<li><p>选择平台<br>  选择平台编译选项,主要是控制台列出所有可供选择的平台，使用哪个平台根据具体情况而定，例如选择6735_debug</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lauch</span><br></pre></td></tr></table></figure></li>
+<li><p>编译<br>  这里主要是使用make进行源码编译，例如：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 编译framework</span></span><br><span class="line">make framework </span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译资源apk</span></span><br><span class="line">make framework-res</span><br><span class="line"><span class="meta">#</span><span class="bash"> 构建可以指定分配的的系统资源，如CPU，内存等</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 比如两核两线差可以指定j4,数字越高编译越快，前提你的电脑硬件要支持：</span></span><br><span class="line">make framework framework-res -j4</span><br><span class="line"><span class="meta">#</span><span class="bash"> 编译system.img镜像</span></span><br><span class="line">make -j4</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动模拟器</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">emulator</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="切换分支（获取不同版本源码）"><a href="#切换分支（获取不同版本源码）" class="headerlink" title="切换分支（获取不同版本源码）"></a>切换分支（获取不同版本源码）</h1><ul>
+<li>查看所有版本分支信息<br> 仓库初始化成功后，然后执行以下命令查看所有可切换的分支：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd .repo/manifests</span><br><span class="line">git branch -a  cut -d / -f 3</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>切换分支（版本）</p>
+<p> 如果我们下载了最新的源码，邮箱查看其它版本（例如：4.1.1_r4），可以使用以下方式进行，这样会比单独执行命令下载快的多（因为会进行增量下载）：</p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">repo init -b android-4.1.1_r4</span><br><span class="line">repo sync</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果原来是版本android-4.3_r2.3，又想切回去，可以执行：</span></span><br><span class="line">repo init -b android-4.3_r2.3</span><br><span class="line">repo sync</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者使用如下方式</span></span><br><span class="line">repo forall -c "git checkout android-4.3_r2.3"</span><br></pre></td></tr></table></figure>
+
+<p>我这里简单介绍了安卓源码的下载和编译过程，也是为了以后自己能够在忘了的时候有一个可以查看的地方，当然希望能够帮得想要编译源码而不知道如何下手的同学，最后附上清华大学的AOSP教程<a href="https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/" target="_blank" rel="noopener">地址</a></p>
+]]></content>
+      <categories>
+        <category>安卓源码</category>
+      </categories>
+      <tags>
+        <tag>AOSP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安卓不root访问data目录文件</title>
+    <url>/2017/05/10/%E5%AE%89%E5%8D%93%E4%B8%8Droot%E8%AE%BF%E9%97%AEdata%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<p>一般情况下，我们调试程序的时候，需要查看程序的一些数据，我们会想到使用adb命令来完成，可能你会这样来访问：</p>
+<ul>
+<li><p><strong>直接访问</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">C:\Users\Wihatow\Desktop&gt;adb shell</span><br><span class="line">shell@QK1505_A01:/ $ cd /data</span><br><span class="line">shell@QK1505_A01:/data $ ls</span><br><span class="line">opendir failed, Permission denied</span><br><span class="line">255|shell@QK1505_A01:/data $</span><br></pre></td></tr></table></figure>
+<p>然而，并没有什么卵用，没有访问权限。但是，如果手机已经root了，你可以输入：<br>su命令来获取root权限，然后在手机上选择同意，然后在输入上面的命令就可以访问数据了。<br>但是，大多数情况下，我们的设备是没有root过的，那么又该如果才能在不root的情况下查看程序数据呢？</p>
+</li>
+<li><p><strong>如果你这样来访问，你会发现可以读取程序数据了：</strong></p>
+</li>
+</ul>
+<p>1、首先你需要在manifest文件中添加debuggable，如图所示：</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTcwNTEwMTMyOTE5NTA0?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+<p>2、然后按照如下方式进行访问：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">C:\Users\Wihatow\Desktop&gt;adb shell</span><br><span class="line">shell@QK1505_A01:/ $ run-as com.hhwy.ydOA</span><br><span class="line">shell@QK1505_A01:/data/data/com.hhwy.ydOA $ ls</span><br><span class="line">app_outdex</span><br><span class="line">cache</span><br><span class="line">code_cache</span><br><span class="line">files</span><br><span class="line">lib</span><br><span class="line">program_cache</span><br><span class="line">qt-reserved-files</span><br><span class="line">shared_prefs</span><br><span class="line">shell@QK1505_A01:/data/data/com.hhwy.ydOA $</span><br></pre></td></tr></table></figure>
+<p>正如上面你所看到的，能够访问程序数据了。</p>
+]]></content>
+      <categories>
+        <category>编程开发</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安卓运行时错误java.lang.NoClassDefFoundError分析</title>
+    <url>/2017/09/01/%E5%AE%89%E5%8D%93%E8%BF%90%E8%A1%8C%E6%97%B6%E9%94%99%E8%AF%AFjava-lang-NoClassDefFoundError%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>今天在调试项目的时候，突然发现项目在我的手机上一切正常，但是在另一个手机上却老是运行时崩溃，报java.lang.NoClassDefFoundError这个错误，这个错误一般都是类名或者包名不对导致找不到类的问题。于是各种debug，搞了两个点儿，仍旧没有发现问题所在，可以说笔者当时内心是崩溃的！好在最后终于解决了问题，所以写下此文，希望能够帮助遇到同样问题的开发者。</p>
+<p>在安卓开发中，Java虚拟机Dalvik在执行DEX格式的Java应用程序时，使用原生类型short来索引DEX文件中的方法。这意味着单个DEX文件可被引用的方法总数被限制为65536，当应用的方法数超过这一限制时，就要考虑多个dex打包了。在5.0之后的系统中不会存在问题，已经默认支持多个dex了，但是在5.0之前的系统中，编译是不会出现问题的，运行的时候会出现java.lang.NoClassDefFoundError这个错误。知道了问题所在就好办了，解决的方法有一下几种：</p>
+<ul>
+<li>修改AndroidManifest.xml<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line">    android:name="android.support.multidex.MultiDexApplication" &lt;!--主要是这一行--&gt;</span><br><span class="line">    tools:replace="android:icon, android:theme,android:label"</span><br><span class="line">    android:theme="@style/AppTheme"&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>添加Application类并继承MultiDexApplication类<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">MultiDexApplication</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.onCreate();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li>自定义Application类并重写attachBaseContext(Context base)方法<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.attachBaseContext(base);</span><br><span class="line">           MultiDex.install(base);<span class="comment">//主要是添加这一行</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li>配置gradle<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">25</span></span><br><span class="line">    buildToolsVersion <span class="string">"25.0.2"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"com.hhwy.testwebview"</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">25</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">        multiDexEnabled <span class="keyword">true</span><span class="comment">//主要是这一行的配置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">   <span class="keyword">compile</span> <span class="string">'com.android.support:multidex:1.0.0'</span><span class="comment">//添加依赖</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程开发</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sqlite中strftime()函数的用法</title>
+    <url>/2016/12/15/sqlite%E4%B8%ADstrftime-%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<h6 id="记下，以后用得着"><a href="#记下，以后用得着" class="headerlink" title="记下，以后用得着"></a>记下，以后用得着</h6><p>strftime()函数可以把YYYY-MM-DD HH:MM:SS格式的日期字符串转换成其它形式的字符串。<br>strftime()的语法是strftime(格式, 日期/时间, 修正符, 修正符, …)</p>
+<p>它可以用以下的符号对日期和时间进行格式化：<br>%d 日期, 01-31<br>%f 小数形式的秒，SS.SSS<br>%H 小时, 00-23<br>%j 算出某一天是该年的第几天，001-366<br>%m 月份，00-12<br>%M 分钟, 00-59<br>%s 从1970年1月1日到现在的秒数<br>%S 秒, 00-59<br>%w 星期, 0-6 (0是星期天)<br>%W 算出某一天属于该年的第几周, 01-53<br>%Y 年, YYYY<br>%% 百分号</p>
+<p>strftime()的用法举例如下：</p>
+<p>select strftime(‘%Y-%m-%d %H:%M:%S’,’now’,’localtime’);<br>结果：2016-12-15 12:43:08<br>其实更好的用法是这样的,比如统,本月或本年的支出:<br>select strftime(‘%Y-%m’,日期) as 月份,sum(支出) as 月支出 from 流水帐 group by 月份;</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
+</search>
