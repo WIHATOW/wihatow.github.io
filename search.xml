@@ -59,6 +59,23 @@
       </tags>
   </entry>
   <entry>
+    <title>Object-c冒泡排序</title>
+    <url>/2016/10/20/Object-c%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<hr>
+<p>排序算法有好多中：选择排序、快速排序、希尔排序、堆排序等等，这里主要是简单的实现Object-c下的冒泡排序，这里添加了一个变量hasSwap，在大多数排序中可以减少部分判断次数，另外在交换的时候使用了点技巧，可以减少一个变量。</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;冒泡排序</span><br><span class="line">void bubbleSort(int *nums,int length)&#123;</span><br><span class="line">    BOOL hasSwap &#x3D; YES;</span><br><span class="line">    for (int i&#x3D;0; i&lt;length &amp;&amp; hasSwap; i++) &#123;</span><br><span class="line">        hasSwap &#x3D; NO;</span><br><span class="line">        for (int j&#x3D;0; j&lt;length-1-i; j++) &#123;</span><br><span class="line">            if (nums[j] &gt; nums[j+1]) &#123;</span><br><span class="line">                nums[j] &#x3D; nums[j] + nums[j+1];</span><br><span class="line">                nums[j+1] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                nums[j] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                hasSwap &#x3D; YES;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux终端中sudo显示无法解析主机</title>
     <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
     <content><![CDATA[<blockquote>
@@ -103,20 +120,22 @@
       </tags>
   </entry>
   <entry>
-    <title>Object-c冒泡排序</title>
-    <url>/2016/10/20/Object-c%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
-    <content><![CDATA[<hr>
-<p>排序算法有好多中：选择排序、快速排序、希尔排序、堆排序等等，这里主要是简单的实现Object-c下的冒泡排序，这里添加了一个变量hasSwap，在大多数排序中可以减少部分判断次数，另外在交换的时候使用了点技巧，可以减少一个变量。</p>
-<hr>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;冒泡排序</span><br><span class="line">void bubbleSort(int *nums,int length)&#123;</span><br><span class="line">    BOOL hasSwap &#x3D; YES;</span><br><span class="line">    for (int i&#x3D;0; i&lt;length &amp;&amp; hasSwap; i++) &#123;</span><br><span class="line">        hasSwap &#x3D; NO;</span><br><span class="line">        for (int j&#x3D;0; j&lt;length-1-i; j++) &#123;</span><br><span class="line">            if (nums[j] &gt; nums[j+1]) &#123;</span><br><span class="line">                nums[j] &#x3D; nums[j] + nums[j+1];</span><br><span class="line">                nums[j+1] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                nums[j] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                hasSwap &#x3D; YES;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>git配置sshkey</title>
+    <url>/2019/11/13/git%E9%85%8D%E7%BD%AEsshkey/</url>
+    <content><![CDATA[<blockquote>
+<p>使用命令添加sshkey私钥  </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># xxx为私钥路径</span></span><br><span class="line">ssh-add xxx</span><br></pre></td></tr></table></figure>
 
-<hr>
-]]></content>
+<blockquote>
+<p>git配置文件中使用   </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在用户目录下找到.ssh/config，在其中添加如下配置</span></span><br><span class="line">Host *</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>编程语言</category>
+        <category>Git配置</category>
       </categories>
       <tags>
-        <tag>iOS</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -137,78 +156,6 @@
       </categories>
       <tags>
         <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2016/08/22/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git配置sshkey</title>
-    <url>/2019/11/13/git%E9%85%8D%E7%BD%AEsshkey/</url>
-    <content><![CDATA[<blockquote>
-<p>使用命令添加sshkey私钥  </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># xxx为私钥路径</span></span><br><span class="line">ssh-add xxx</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>git配置文件中使用   </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在用户目录下找到.ssh/config，在其中添加如下配置</span></span><br><span class="line">Host *</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Git配置</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mtk刷机解锁root过程</title>
-    <url>/2019/11/13/mtk%E5%88%B7%E6%9C%BA%E8%A7%A3%E9%94%81root%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<blockquote>
-<p>刷机工具  </p>
-</blockquote>
-<p>mtk刷机使用flashtool进行，首先需要下载安装，可以去这里下载：<br><a href="http://www.flashtool.net/downloads.php" target="_blank" rel="noopener">http://www.flashtool.net/downloads.php</a>  </p>
-<blockquote>
-<p>刷机  </p>
-</blockquote>
-<p>打开flashtool，选择镜像中的scatter file，类似这种文件：<br>MT6580_Android_scatter.txt，然后点击download，手机关机<br>按住音量下键（有的是上键）并插上USB数据线，看到刷机工具开始走<br>进度后，松开手指，等待刷机完成。</p>
-<blockquote>
-<p>解锁   </p>
-</blockquote>
-<p>这里的解锁指的是bootloader锁。手机开机状态下，打开调试模式，<br>，然后找到oem锁，并打开；用数据线连接到电脑，打开终端，然后<br>按住以下步骤进行：   </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入fastboot</span></span><br><span class="line">adb reboot bootloader</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待重启进入fastboot后执行</span></span><br><span class="line"><span class="comment"># 解锁命令</span></span><br><span class="line">fastboot flashing unlock</span><br><span class="line"><span class="comment"># 然后根据手机屏幕上的说明进行操作（一般是使用音量键确认和取消）</span></span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">fastboot reboot</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>root   </p>
-</blockquote>
-<p>打开终端，按照以下步骤进行：   </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 以root方式执行命令</span></span><br><span class="line">adb root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后试着执行</span></span><br><span class="line">adb remount</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若出现类似没有权限的提示，则进行如下操作</span></span><br><span class="line">adb root</span><br><span class="line">adb <span class="built_in">disable</span>-verity</span><br><span class="line">adb reboot</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>MTK教程</category>
-      </categories>
-      <tags>
-        <tag>MTK</tag>
       </tags>
   </entry>
   <entry>
@@ -386,6 +333,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2016/08/22/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>iOS使用宏定义函数和代码块</title>
     <url>/2018/01/18/iOS%E4%BD%BF%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E5%92%8C%E4%BB%A3%E7%A0%81%E5%9D%97/</url>
     <content><![CDATA[<h1 id="iOS使用宏定义函数和代码块"><a href="#iOS使用宏定义函数和代码块" class="headerlink" title="iOS使用宏定义函数和代码块"></a>iOS使用宏定义函数和代码块</h1><p>今天在开发过程中碰到一个问题：就是父类中要向外发送通知，然后子类中或者其他类中来接收它。当然一般是把它写到类方法中去，但是有个问题，就是如果调用的类不是它的子类，就不能直接调用，当然也可以采用静态方法实现，我这里主要是想用宏定义来实现，下面我分别介绍使用宏定义函数和定义代码块的方式进行，废话不多说了，直接上代码：</p>
@@ -411,54 +382,32 @@
       </tags>
   </entry>
   <entry>
-    <title>使用Eureka将Node.js引入Spring Cloud</title>
-    <url>/2016/12/22/%E4%BD%BF%E7%94%A8Eureka%E5%B0%86Node.js%E5%BC%95%E5%85%A5Spring%20Cloud/</url>
-    <content><![CDATA[<ul>
-<li><p>简介</p>
-<ul>
-<li>Spring Cloud是目前非常流行的微服务化解决方案，它将Spring Boot的便捷开发和Netflix OSS的丰富解决方案结合起来。如我们所知，Spring Cloud不同于Dubbo，使用的是基于HTTP(s)的Rest服务来构建整个服务体系。</li>
-<li>Eureka是Netflix开发的服务发现框架，SpringCloud将它集成在自己的子项目spring-cloud-netflix中，实现SpringCloud的服务发现功能。</li>
-</ul>
-</li>
-<li><p>服务端配置（Java）</p>
-<ul>
-<li>application.properties<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">server.port=<span class="number">1111</span></span><br><span class="line">eureka.instance.hostname=localhost</span><br><span class="line">spring.application.name=localhost</span><br><span class="line">eureka.client.register-<span class="keyword">with</span>-eureka=<span class="literal">true</span></span><br><span class="line">eureka.client.fetch-registry=<span class="literal">true</span></span><br><span class="line">eureka.client.serviceUrl.defaultZone=http:<span class="comment">//$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br></pre></td></tr></table></figure></li>
-<li>pom.xml  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.didispace<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Spring Cloud project<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>Brixton.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>Application.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.didispace;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.builder.SpringApplicationBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> SpringApplicationBuilder(Application<span class="class">.<span class="keyword">class</span>).<span class="title">web</span>(<span class="title">true</span>).<span class="title">run</span>(<span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>Node.js配置</p>
-<ul>
-<li><p>安装eureka-client</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install eureka-client --save</span><br></pre></td></tr></table></figure></li>
-<li><p>安装express</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install express --save</span><br></pre></td></tr></table></figure></li>
-<li><p>注册服务</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Eureka = <span class="built_in">require</span>(<span class="string">'eureka-client'</span>).Eureka;</span><br><span class="line"><span class="keyword">const</span> client = <span class="keyword">new</span> Eureka(&#123;</span><br><span class="line">    instance: &#123;</span><br><span class="line">        app: <span class="string">'PhoneQ'</span>,</span><br><span class="line">        hostName: <span class="string">'localhost'</span>,</span><br><span class="line">        ipAddr: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        statusPageUrl: <span class="string">'http://localhost:3333'</span>,</span><br><span class="line">        port: &#123;</span><br><span class="line">            <span class="string">'$'</span>: <span class="number">3333</span>,</span><br><span class="line">            <span class="string">'@enabled'</span>: <span class="string">'true'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        vipAddress: <span class="string">'test.something.com'</span>,</span><br><span class="line">        dataCenterInfo: &#123;</span><br><span class="line">            <span class="string">'@class'</span>: <span class="string">'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo'</span>,</span><br><span class="line">            name: <span class="string">'MyOwn'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    eureka: &#123;</span><br><span class="line">        serviceUrl: [<span class="string">'http://localhost:1111/eureka/apps/'</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">client.start(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error || <span class="string">'Node server register completed'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
-<li><p>使用express挂起服务</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.get(<span class="string">'/health'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    res.json(&#123;</span><br><span class="line">        status: <span class="string">'UP'</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.get(<span class="string">'/'</span>, (req, res, next) =&gt; &#123;</span><br><span class="line">    res.json(&#123;<span class="attr">status</span>: <span class="literal">true</span>,<span class="attr">message</span>:<span class="string">"It's works!"</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.listen(<span class="number">3333</span>);</span><br></pre></td></tr></table></figure></li>
-<li><p>测试Eureka服务</p>
-<p>启动Eureka服务，在浏览器输入<a href="http://localhost:1111/，看到类似下面的图片即说明服务成功开启：" target="_blank" rel="noopener">http://localhost:1111/，看到类似下面的图片即说明服务成功开启：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI0NzIwOTM5?x-oss-process=image/format,png" alt="这里写图片描述"></p>
-</li>
-<li><p>使用Node.js注册</p>
-<p>将上面Node.js注册服务部分代码保存到index.js，然后开启终端输入：node index.js，看到类似下面的结果说明服务成功注册：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MTQ1NDMw?x-oss-process=image/format,png" alt="这里写图片描述"></p>
-</li>
-<li><p>查看注册服务</p>
-<p>浏览器输入<a href="http://localhost:1111/，可以看到服务已经成功注册了：" target="_blank" rel="noopener">http://localhost:1111/，可以看到服务已经成功注册了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MzU2MjEz?x-oss-process=image/format,png" alt="这里写图片描述"></p>
-</li>
-<li><p>测试express服务</p>
-<p>浏览器输入<a href="http://localhost:3333，可以看到服务已经挂起来了：">http://localhost:3333，可以看到服务已经挂起来了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1NjI0Mjky?x-oss-process=image/format,png" alt="这里写图片描述"></p>
-<p>至此，Node.js成功引入Spring Cloud，看到这里的你也赶快动手试试吧，祝你成功！</p>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
+    <title>mtk刷机解锁root过程</title>
+    <url>/2019/11/13/mtk%E5%88%B7%E6%9C%BA%E8%A7%A3%E9%94%81root%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<blockquote>
+<p>刷机工具  </p>
+</blockquote>
+<p>mtk刷机使用flashtool进行，首先需要下载安装，可以去这里下载：<br><a href="http://www.flashtool.net/downloads.php" target="_blank" rel="noopener">http://www.flashtool.net/downloads.php</a>  </p>
+<blockquote>
+<p>刷机  </p>
+</blockquote>
+<p>打开flashtool，选择镜像中的scatter file，类似这种文件：<br>MT6580_Android_scatter.txt，然后点击download，手机关机<br>按住音量下键（有的是上键）并插上USB数据线，看到刷机工具开始走<br>进度后，松开手指，等待刷机完成。</p>
+<blockquote>
+<p>解锁   </p>
+</blockquote>
+<p>这里的解锁指的是bootloader锁。手机开机状态下，打开调试模式，<br>，然后找到oem锁，并打开；用数据线连接到电脑，打开终端，然后<br>按住以下步骤进行：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 进入fastboot</span></span><br><span class="line">adb reboot bootloader</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待重启进入fastboot后执行</span></span><br><span class="line"><span class="comment"># 解锁命令</span></span><br><span class="line">fastboot flashing unlock</span><br><span class="line"><span class="comment"># 然后根据手机屏幕上的说明进行操作（一般是使用音量键确认和取消）</span></span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">fastboot reboot</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>root   </p>
+</blockquote>
+<p>打开终端，按照以下步骤进行：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 以root方式执行命令</span></span><br><span class="line">adb root</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后试着执行</span></span><br><span class="line">adb remount</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若出现类似没有权限的提示，则进行如下操作</span></span><br><span class="line">adb root</span><br><span class="line">adb <span class="built_in">disable</span>-verity</span><br><span class="line">adb reboot</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>编程语言</category>
+        <category>MTK教程</category>
       </categories>
       <tags>
-        <tag>Spring</tag>
+        <tag>MTK</tag>
       </tags>
   </entry>
   <entry>
@@ -557,6 +506,57 @@
       </categories>
       <tags>
         <tag>AOSP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Eureka将Node.js引入Spring Cloud</title>
+    <url>/2016/12/22/%E4%BD%BF%E7%94%A8Eureka%E5%B0%86Node.js%E5%BC%95%E5%85%A5Spring%20Cloud/</url>
+    <content><![CDATA[<ul>
+<li><p>简介</p>
+<ul>
+<li>Spring Cloud是目前非常流行的微服务化解决方案，它将Spring Boot的便捷开发和Netflix OSS的丰富解决方案结合起来。如我们所知，Spring Cloud不同于Dubbo，使用的是基于HTTP(s)的Rest服务来构建整个服务体系。</li>
+<li>Eureka是Netflix开发的服务发现框架，SpringCloud将它集成在自己的子项目spring-cloud-netflix中，实现SpringCloud的服务发现功能。</li>
+</ul>
+</li>
+<li><p>服务端配置（Java）</p>
+<ul>
+<li>application.properties<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">server.port=<span class="number">1111</span></span><br><span class="line">eureka.instance.hostname=localhost</span><br><span class="line">spring.application.name=localhost</span><br><span class="line">eureka.client.register-<span class="keyword">with</span>-eureka=<span class="literal">true</span></span><br><span class="line">eureka.client.fetch-registry=<span class="literal">true</span></span><br><span class="line">eureka.client.serviceUrl.defaultZone=http:<span class="comment">//$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br></pre></td></tr></table></figure></li>
+<li>pom.xml  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.didispace<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Spring Cloud project<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>Brixton.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>Application.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.didispace;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.builder.SpringApplicationBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> SpringApplicationBuilder(Application<span class="class">.<span class="keyword">class</span>).<span class="title">web</span>(<span class="title">true</span>).<span class="title">run</span>(<span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Node.js配置</p>
+<ul>
+<li><p>安装eureka-client</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install eureka-client --save</span><br></pre></td></tr></table></figure></li>
+<li><p>安装express</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install express --save</span><br></pre></td></tr></table></figure></li>
+<li><p>注册服务</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Eureka = <span class="built_in">require</span>(<span class="string">'eureka-client'</span>).Eureka;</span><br><span class="line"><span class="keyword">const</span> client = <span class="keyword">new</span> Eureka(&#123;</span><br><span class="line">    instance: &#123;</span><br><span class="line">        app: <span class="string">'PhoneQ'</span>,</span><br><span class="line">        hostName: <span class="string">'localhost'</span>,</span><br><span class="line">        ipAddr: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        statusPageUrl: <span class="string">'http://localhost:3333'</span>,</span><br><span class="line">        port: &#123;</span><br><span class="line">            <span class="string">'$'</span>: <span class="number">3333</span>,</span><br><span class="line">            <span class="string">'@enabled'</span>: <span class="string">'true'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        vipAddress: <span class="string">'test.something.com'</span>,</span><br><span class="line">        dataCenterInfo: &#123;</span><br><span class="line">            <span class="string">'@class'</span>: <span class="string">'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo'</span>,</span><br><span class="line">            name: <span class="string">'MyOwn'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    eureka: &#123;</span><br><span class="line">        serviceUrl: [<span class="string">'http://localhost:1111/eureka/apps/'</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">client.start(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error || <span class="string">'Node server register completed'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li><p>使用express挂起服务</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.get(<span class="string">'/health'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    res.json(&#123;</span><br><span class="line">        status: <span class="string">'UP'</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.get(<span class="string">'/'</span>, (req, res, next) =&gt; &#123;</span><br><span class="line">    res.json(&#123;<span class="attr">status</span>: <span class="literal">true</span>,<span class="attr">message</span>:<span class="string">"It's works!"</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.listen(<span class="number">3333</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>测试Eureka服务</p>
+<p>启动Eureka服务，在浏览器输入<a href="http://localhost:1111/，看到类似下面的图片即说明服务成功开启：" target="_blank" rel="noopener">http://localhost:1111/，看到类似下面的图片即说明服务成功开启：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI0NzIwOTM5?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+</li>
+<li><p>使用Node.js注册</p>
+<p>将上面Node.js注册服务部分代码保存到index.js，然后开启终端输入：node index.js，看到类似下面的结果说明服务成功注册：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MTQ1NDMw?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+</li>
+<li><p>查看注册服务</p>
+<p>浏览器输入<a href="http://localhost:1111/，可以看到服务已经成功注册了：" target="_blank" rel="noopener">http://localhost:1111/，可以看到服务已经成功注册了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MzU2MjEz?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+</li>
+<li><p>测试express服务</p>
+<p>浏览器输入<a href="http://localhost:3333，可以看到服务已经挂起来了：">http://localhost:3333，可以看到服务已经挂起来了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1NjI0Mjky?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+<p>至此，Node.js成功引入Spring Cloud，看到这里的你也赶快动手试试吧，祝你成功！</p>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
