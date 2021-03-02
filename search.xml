@@ -30,28 +30,22 @@
       </tags>
   </entry>
   <entry>
-    <title>Object-c处理简单数列求值问题</title>
-    <url>/2016/10/20/Object-c%E5%A4%84%E7%90%86%E7%AE%80%E5%8D%95%E6%95%B0%E5%88%97%E6%B1%82%E5%80%BC%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><hr>
-<p>看到这样的递推公式就可以考虑使用递归来实现数列的求值问题。当然通过递推公式我们比较容易得到:</p>
-<ul>
-<li>f(n) = 2*f(n-1) + f(n-2);</li>
-</ul>
-<p>于是使用递归进行求值：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 1)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return 2*f(n-1) + f(n-2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>当然，并不是所有人通过递推公式都能得到与上面同样的公式，也许他们得到了下面的公式：</p>
-<ul>
-<li>f(n) = f(n+2) - 2*f(n+1)</li>
-</ul>
-<p>当然他们得到的公式并没有错，只不过是从另一个角度进行的推导，但是通过这个公式是无法使用递归得到f(10)的值的。也许有这么一道题：</p>
-<h3 id="已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><p>这样一来就可以使用这个递推公式通过递归的方法得到f(10)的结果了，可以参考一下程序：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 20) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 21)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return f(n+2) - 2*f(n+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <title>Linux终端中sudo显示无法解析主机</title>
+    <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>原因分析  </p>
+</blockquote>
+<p>主要是因为用户在设置中修改了主机名，而本地hosts映射的还是之前的主机名，<br>所以导致无法找到新的主机名。  </p>
+<blockquote>
+<p>解决方法</p>
+</blockquote>
+<p>打开/etc/hosts文件，修改对应的主机名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1       localhost                                 </span><br><span class="line">127.0.1.1       xxx修改后的主机名 <span class="comment">#pc190565-ThinkCentre-M720t-N000，这个是之前的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::1     ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>编程语言</category>
+        <category>Linux教程</category>
       </categories>
       <tags>
-        <tag>iOS</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -84,42 +78,45 @@
       </tags>
   </entry>
   <entry>
-    <title>git配置sshkey</title>
-    <url>/2019/11/13/git%E9%85%8D%E7%BD%AEsshkey/</url>
-    <content><![CDATA[<blockquote>
-<p>使用命令添加sshkey私钥  </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># xxx为私钥路径</span></span><br><span class="line">ssh-add xxx</span><br></pre></td></tr></table></figure>
+    <title>Object-c冒泡排序</title>
+    <url>/2016/10/20/Object-c%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<hr>
+<p>排序算法有好多中：选择排序、快速排序、希尔排序、堆排序等等，这里主要是简单的实现Object-c下的冒泡排序，这里添加了一个变量hasSwap，在大多数排序中可以减少部分判断次数，另外在交换的时候使用了点技巧，可以减少一个变量。</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;冒泡排序</span><br><span class="line">void bubbleSort(int *nums,int length)&#123;</span><br><span class="line">    BOOL hasSwap &#x3D; YES;</span><br><span class="line">    for (int i&#x3D;0; i&lt;length &amp;&amp; hasSwap; i++) &#123;</span><br><span class="line">        hasSwap &#x3D; NO;</span><br><span class="line">        for (int j&#x3D;0; j&lt;length-1-i; j++) &#123;</span><br><span class="line">            if (nums[j] &gt; nums[j+1]) &#123;</span><br><span class="line">                nums[j] &#x3D; nums[j] + nums[j+1];</span><br><span class="line">                nums[j+1] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                nums[j] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                hasSwap &#x3D; YES;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>git配置文件中使用   </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在用户目录下找到.ssh/config，在其中添加如下配置</span></span><br><span class="line">Host *</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>]]></content>
+<hr>
+]]></content>
       <categories>
-        <category>Git配置</category>
+        <category>编程语言</category>
       </categories>
       <tags>
-        <tag>Git</tag>
+        <tag>iOS</tag>
       </tags>
   </entry>
   <entry>
-    <title>git查看中文文件名乱码问题</title>
-    <url>/2019/11/13/git%E6%9F%A5%E7%9C%8B%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<blockquote>
-<p>执行命令   </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里只修改了当前git仓库，若要全局修改讲local改为global</span></span><br><span class="line">git config --<span class="built_in">local</span> core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改配置   </p>
-</blockquote>
-<p>在当前仓下的.get/config进行如下修改：   </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加以下配置</span></span><br><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
+    <title>Object-c处理简单数列求值问题</title>
+    <url>/2016/10/20/Object-c%E5%A4%84%E7%90%86%E7%AE%80%E5%8D%95%E6%95%B0%E5%88%97%E6%B1%82%E5%80%BC%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><hr>
+<p>看到这样的递推公式就可以考虑使用递归来实现数列的求值问题。当然通过递推公式我们比较容易得到:</p>
+<ul>
+<li>f(n) = 2*f(n-1) + f(n-2);</li>
+</ul>
+<p>于是使用递归进行求值：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 1)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return 2*f(n-1) + f(n-2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>当然，并不是所有人通过递推公式都能得到与上面同样的公式，也许他们得到了下面的公式：</p>
+<ul>
+<li>f(n) = f(n+2) - 2*f(n+1)</li>
+</ul>
+<p>当然他们得到的公式并没有错，只不过是从另一个角度进行的推导，但是通过这个公式是无法使用递归得到f(10)的值的。也许有这么一道题：</p>
+<h3 id="已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><p>这样一来就可以使用这个递推公式通过递归的方法得到f(10)的结果了，可以参考一下程序：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 20) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 21)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return f(n+2) - 2*f(n+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>Git配置</category>
+        <category>编程语言</category>
       </categories>
       <tags>
-        <tag>Git</tag>
+        <tag>iOS</tag>
       </tags>
   </entry>
   <entry>
@@ -297,113 +294,66 @@
       </tags>
   </entry>
   <entry>
-    <title>sqlite中strftime()函数的用法</title>
-    <url>/2016/12/15/sqlite%E4%B8%ADstrftime-%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/</url>
-    <content><![CDATA[<h6 id="记下，以后用得着"><a href="#记下，以后用得着" class="headerlink" title="记下，以后用得着"></a>记下，以后用得着</h6><p>strftime()函数可以把YYYY-MM-DD HH:MM:SS格式的日期字符串转换成其它形式的字符串。<br>strftime()的语法是strftime(格式, 日期/时间, 修正符, 修正符, …)</p>
-<p>它可以用以下的符号对日期和时间进行格式化：<br>%d 日期, 01-31<br>%f 小数形式的秒，SS.SSS<br>%H 小时, 00-23<br>%j 算出某一天是该年的第几天，001-366<br>%m 月份，00-12<br>%M 分钟, 00-59<br>%s 从1970年1月1日到现在的秒数<br>%S 秒, 00-59<br>%w 星期, 0-6 (0是星期天)<br>%W 算出某一天属于该年的第几周, 01-53<br>%Y 年, YYYY<br>%% 百分号</p>
-<p>strftime()的用法举例如下：</p>
-<p>select strftime(‘%Y-%m-%d %H:%M:%S’,’now’,’localtime’);<br>结果：2016-12-15 12:43:08<br>其实更好的用法是这样的,比如统,本月或本年的支出:<br>select strftime(‘%Y-%m’,日期) as 月份,sum(支出) as 月支出 from 流水帐 group by 月份;</p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>SQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Object-c冒泡排序</title>
-    <url>/2016/10/20/Object-c%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
-    <content><![CDATA[<hr>
-<p>排序算法有好多中：选择排序、快速排序、希尔排序、堆排序等等，这里主要是简单的实现Object-c下的冒泡排序，这里添加了一个变量hasSwap，在大多数排序中可以减少部分判断次数，另外在交换的时候使用了点技巧，可以减少一个变量。</p>
-<hr>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F;冒泡排序</span><br><span class="line">void bubbleSort(int *nums,int length)&#123;</span><br><span class="line">    BOOL hasSwap &#x3D; YES;</span><br><span class="line">    for (int i&#x3D;0; i&lt;length &amp;&amp; hasSwap; i++) &#123;</span><br><span class="line">        hasSwap &#x3D; NO;</span><br><span class="line">        for (int j&#x3D;0; j&lt;length-1-i; j++) &#123;</span><br><span class="line">            if (nums[j] &gt; nums[j+1]) &#123;</span><br><span class="line">                nums[j] &#x3D; nums[j] + nums[j+1];</span><br><span class="line">                nums[j+1] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                nums[j] &#x3D; nums[j] - nums[j+1];</span><br><span class="line">                hasSwap &#x3D; YES;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <title>git查看中文文件名乱码问题</title>
+    <url>/2019/11/13/git%E6%9F%A5%E7%9C%8B%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<blockquote>
+<p>执行命令   </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里只修改了当前git仓库，若要全局修改讲local改为global</span></span><br><span class="line">git config --<span class="built_in">local</span> core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
 
-<hr>
-]]></content>
+<blockquote>
+<p>修改配置   </p>
+</blockquote>
+<p>在当前仓下的.get/config进行如下修改：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加以下配置</span></span><br><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>编程语言</category>
+        <category>Git配置</category>
       </categories>
       <tags>
-        <tag>iOS</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
-    <title>使用Eureka将Node.js引入Spring Cloud</title>
-    <url>/2016/12/22/%E4%BD%BF%E7%94%A8Eureka%E5%B0%86Node.js%E5%BC%95%E5%85%A5Spring%20Cloud/</url>
-    <content><![CDATA[<ul>
-<li><p>简介</p>
-<ul>
-<li>Spring Cloud是目前非常流行的微服务化解决方案，它将Spring Boot的便捷开发和Netflix OSS的丰富解决方案结合起来。如我们所知，Spring Cloud不同于Dubbo，使用的是基于HTTP(s)的Rest服务来构建整个服务体系。</li>
-<li>Eureka是Netflix开发的服务发现框架，SpringCloud将它集成在自己的子项目spring-cloud-netflix中，实现SpringCloud的服务发现功能。</li>
-</ul>
-</li>
-<li><p>服务端配置（Java）</p>
-<ul>
-<li>application.properties<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">server.port=<span class="number">1111</span></span><br><span class="line">eureka.instance.hostname=localhost</span><br><span class="line">spring.application.name=localhost</span><br><span class="line">eureka.client.register-<span class="keyword">with</span>-eureka=<span class="literal">true</span></span><br><span class="line">eureka.client.fetch-registry=<span class="literal">true</span></span><br><span class="line">eureka.client.serviceUrl.defaultZone=http:<span class="comment">//$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br></pre></td></tr></table></figure></li>
-<li>pom.xml  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.didispace<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Spring Cloud project<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>Brixton.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>Application.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.didispace;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.builder.SpringApplicationBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> SpringApplicationBuilder(Application<span class="class">.<span class="keyword">class</span>).<span class="title">web</span>(<span class="title">true</span>).<span class="title">run</span>(<span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>Node.js配置</p>
-<ul>
-<li><p>安装eureka-client</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install eureka-client --save</span><br></pre></td></tr></table></figure></li>
-<li><p>安装express</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install express --save</span><br></pre></td></tr></table></figure></li>
-<li><p>注册服务</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Eureka = <span class="built_in">require</span>(<span class="string">'eureka-client'</span>).Eureka;</span><br><span class="line"><span class="keyword">const</span> client = <span class="keyword">new</span> Eureka(&#123;</span><br><span class="line">    instance: &#123;</span><br><span class="line">        app: <span class="string">'PhoneQ'</span>,</span><br><span class="line">        hostName: <span class="string">'localhost'</span>,</span><br><span class="line">        ipAddr: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        statusPageUrl: <span class="string">'http://localhost:3333'</span>,</span><br><span class="line">        port: &#123;</span><br><span class="line">            <span class="string">'$'</span>: <span class="number">3333</span>,</span><br><span class="line">            <span class="string">'@enabled'</span>: <span class="string">'true'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        vipAddress: <span class="string">'test.something.com'</span>,</span><br><span class="line">        dataCenterInfo: &#123;</span><br><span class="line">            <span class="string">'@class'</span>: <span class="string">'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo'</span>,</span><br><span class="line">            name: <span class="string">'MyOwn'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    eureka: &#123;</span><br><span class="line">        serviceUrl: [<span class="string">'http://localhost:1111/eureka/apps/'</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">client.start(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error || <span class="string">'Node server register completed'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
-<li><p>使用express挂起服务</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.get(<span class="string">'/health'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    res.json(&#123;</span><br><span class="line">        status: <span class="string">'UP'</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.get(<span class="string">'/'</span>, (req, res, next) =&gt; &#123;</span><br><span class="line">    res.json(&#123;<span class="attr">status</span>: <span class="literal">true</span>,<span class="attr">message</span>:<span class="string">"It's works!"</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.listen(<span class="number">3333</span>);</span><br></pre></td></tr></table></figure></li>
-<li><p>测试Eureka服务</p>
-<p>启动Eureka服务，在浏览器输入<a href="http://localhost:1111/，看到类似下面的图片即说明服务成功开启：" target="_blank" rel="noopener">http://localhost:1111/，看到类似下面的图片即说明服务成功开启：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI0NzIwOTM5?x-oss-process=image/format,png" alt="这里写图片描述"></p>
-</li>
-<li><p>使用Node.js注册</p>
-<p>将上面Node.js注册服务部分代码保存到index.js，然后开启终端输入：node index.js，看到类似下面的结果说明服务成功注册：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MTQ1NDMw?x-oss-process=image/format,png" alt="这里写图片描述"></p>
-</li>
-<li><p>查看注册服务</p>
-<p>浏览器输入<a href="http://localhost:1111/，可以看到服务已经成功注册了：" target="_blank" rel="noopener">http://localhost:1111/，可以看到服务已经成功注册了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MzU2MjEz?x-oss-process=image/format,png" alt="这里写图片描述"></p>
-</li>
-<li><p>测试express服务</p>
-<p>浏览器输入<a href="http://localhost:3333，可以看到服务已经挂起来了：">http://localhost:3333，可以看到服务已经挂起来了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1NjI0Mjky?x-oss-process=image/format,png" alt="这里写图片描述"></p>
-<p>至此，Node.js成功引入Spring Cloud，看到这里的你也赶快动手试试吧，祝你成功！</p>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
+    <title>git配置sshkey</title>
+    <url>/2019/11/13/git%E9%85%8D%E7%BD%AEsshkey/</url>
+    <content><![CDATA[<blockquote>
+<p>使用命令添加sshkey私钥  </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># xxx为私钥路径</span></span><br><span class="line">ssh-add xxx</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>git配置文件中使用   </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在用户目录下找到.ssh/config，在其中添加如下配置</span></span><br><span class="line">Host *</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>编程语言</category>
+        <category>Git配置</category>
       </categories>
       <tags>
-        <tag>Spring</tag>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
-    <title>关于phpstorm post表单数据无法获取的问题</title>
-    <url>/2016/08/23/%E5%85%B3%E4%BA%8Ephpstorm-post%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<ol>
-<li>问题原因<ul>
-<li>直接用phpstorm 运行PHP的话，他会自带端口，只要把localhost前面的端口去掉就行了。</li>
-</ul>
-</li>
-<li>解决办法<ul>
-<li>依次进入File -&gt;Settings -&gt;Build,Execution,Deployment -&gt;Deployment</li>
-<li>点击右边加号,然后填写Name为localhost，Type为选择In place</li>
-<li>然后右边选择Mappings,将Local path选择Apache的htdocsl路径即可</li>
-</ul>
-</li>
-<li>注意事项<ul>
-<li>运行的php文件必须放在Apache的htdocs文件夹下面，否则Apache无法会报404找不到文件错误</li>
-</ul>
-</li>
-</ol>
+    <title>Hello World</title>
+    <url>/2016/08/22/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
       <categories>
-        <category>编程语言</category>
+        <category>hexo</category>
       </categories>
       <tags>
-        <tag>PHP</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -461,42 +411,96 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux终端中sudo显示无法解析主机</title>
-    <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
-    <content><![CDATA[<blockquote>
-<p>原因分析  </p>
-</blockquote>
-<p>主要是因为用户在设置中修改了主机名，而本地hosts映射的还是之前的主机名，<br>所以导致无法找到新的主机名。  </p>
-<blockquote>
-<p>解决方法</p>
-</blockquote>
-<p>打开/etc/hosts文件，修改对应的主机名</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1       localhost                                 </span><br><span class="line">127.0.1.1       xxx修改后的主机名 <span class="comment">#pc190565-ThinkCentre-M720t-N000，这个是之前的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::1     ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux教程</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>安卓运行时错误java.lang.NoClassDefFoundError分析</title>
-    <url>/2017/09/01/%E5%AE%89%E5%8D%93%E8%BF%90%E8%A1%8C%E6%97%B6%E9%94%99%E8%AF%AFjava-lang-NoClassDefFoundError%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<p>今天在调试项目的时候，突然发现项目在我的手机上一切正常，但是在另一个手机上却老是运行时崩溃，报java.lang.NoClassDefFoundError这个错误，这个错误一般都是类名或者包名不对导致找不到类的问题。于是各种debug，搞了两个点儿，仍旧没有发现问题所在，可以说笔者当时内心是崩溃的！好在最后终于解决了问题，所以写下此文，希望能够帮助遇到同样问题的开发者。</p>
-<p>在安卓开发中，Java虚拟机Dalvik在执行DEX格式的Java应用程序时，使用原生类型short来索引DEX文件中的方法。这意味着单个DEX文件可被引用的方法总数被限制为65536，当应用的方法数超过这一限制时，就要考虑多个dex打包了。在5.0之后的系统中不会存在问题，已经默认支持多个dex了，但是在5.0之前的系统中，编译是不会出现问题的，运行的时候会出现java.lang.NoClassDefFoundError这个错误。知道了问题所在就好办了，解决的方法有一下几种：</p>
+    <title>使用Eureka将Node.js引入Spring Cloud</title>
+    <url>/2016/12/22/%E4%BD%BF%E7%94%A8Eureka%E5%B0%86Node.js%E5%BC%95%E5%85%A5Spring%20Cloud/</url>
+    <content><![CDATA[<ul>
+<li><p>简介</p>
 <ul>
-<li>修改AndroidManifest.xml<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line">    android:name="android.support.multidex.MultiDexApplication" &lt;!--主要是这一行--&gt;</span><br><span class="line">    tools:replace="android:icon, android:theme,android:label"</span><br><span class="line">    android:theme="@style/AppTheme"&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>添加Application类并继承MultiDexApplication类<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">MultiDexApplication</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.onCreate();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
-<li>自定义Application类并重写attachBaseContext(Context base)方法<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.attachBaseContext(base);</span><br><span class="line">           MultiDex.install(base);<span class="comment">//主要是添加这一行</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
-<li>配置gradle<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">25</span></span><br><span class="line">    buildToolsVersion <span class="string">"25.0.2"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"com.hhwy.testwebview"</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">25</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">        multiDexEnabled <span class="keyword">true</span><span class="comment">//主要是这一行的配置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">   <span class="keyword">compile</span> <span class="string">'com.android.support:multidex:1.0.0'</span><span class="comment">//添加依赖</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>Spring Cloud是目前非常流行的微服务化解决方案，它将Spring Boot的便捷开发和Netflix OSS的丰富解决方案结合起来。如我们所知，Spring Cloud不同于Dubbo，使用的是基于HTTP(s)的Rest服务来构建整个服务体系。</li>
+<li>Eureka是Netflix开发的服务发现框架，SpringCloud将它集成在自己的子项目spring-cloud-netflix中，实现SpringCloud的服务发现功能。</li>
+</ul>
+</li>
+<li><p>服务端配置（Java）</p>
+<ul>
+<li>application.properties<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">server.port=<span class="number">1111</span></span><br><span class="line">eureka.instance.hostname=localhost</span><br><span class="line">spring.application.name=localhost</span><br><span class="line">eureka.client.register-<span class="keyword">with</span>-eureka=<span class="literal">true</span></span><br><span class="line">eureka.client.fetch-registry=<span class="literal">true</span></span><br><span class="line">eureka.client.serviceUrl.defaultZone=http:<span class="comment">//$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span></span><br></pre></td></tr></table></figure></li>
+<li>pom.xml  <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.didispace<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>eureka-server<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>Spring Cloud project<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>Brixton.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>Application.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.didispace;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.builder.SpringApplicationBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> SpringApplicationBuilder(Application<span class="class">.<span class="keyword">class</span>).<span class="title">web</span>(<span class="title">true</span>).<span class="title">run</span>(<span class="title">args</span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>Node.js配置</p>
+<ul>
+<li><p>安装eureka-client</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install eureka-client --save</span><br></pre></td></tr></table></figure></li>
+<li><p>安装express</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">npm install express --save</span><br></pre></td></tr></table></figure></li>
+<li><p>注册服务</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Eureka = <span class="built_in">require</span>(<span class="string">'eureka-client'</span>).Eureka;</span><br><span class="line"><span class="keyword">const</span> client = <span class="keyword">new</span> Eureka(&#123;</span><br><span class="line">    instance: &#123;</span><br><span class="line">        app: <span class="string">'PhoneQ'</span>,</span><br><span class="line">        hostName: <span class="string">'localhost'</span>,</span><br><span class="line">        ipAddr: <span class="string">'127.0.0.1'</span>,</span><br><span class="line">        statusPageUrl: <span class="string">'http://localhost:3333'</span>,</span><br><span class="line">        port: &#123;</span><br><span class="line">            <span class="string">'$'</span>: <span class="number">3333</span>,</span><br><span class="line">            <span class="string">'@enabled'</span>: <span class="string">'true'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        vipAddress: <span class="string">'test.something.com'</span>,</span><br><span class="line">        dataCenterInfo: &#123;</span><br><span class="line">            <span class="string">'@class'</span>: <span class="string">'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo'</span>,</span><br><span class="line">            name: <span class="string">'MyOwn'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    eureka: &#123;</span><br><span class="line">        serviceUrl: [<span class="string">'http://localhost:1111/eureka/apps/'</span>],</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">client.start(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(error || <span class="string">'Node server register completed'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+<li><p>使用express挂起服务</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line">app.get(<span class="string">'/health'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    res.json(&#123;</span><br><span class="line">        status: <span class="string">'UP'</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.get(<span class="string">'/'</span>, (req, res, next) =&gt; &#123;</span><br><span class="line">    res.json(&#123;<span class="attr">status</span>: <span class="literal">true</span>,<span class="attr">message</span>:<span class="string">"It's works!"</span>&#125;);</span><br><span class="line">&#125;);</span><br><span class="line">app.listen(<span class="number">3333</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>测试Eureka服务</p>
+<p>启动Eureka服务，在浏览器输入<a href="http://localhost:1111/，看到类似下面的图片即说明服务成功开启：" target="_blank" rel="noopener">http://localhost:1111/，看到类似下面的图片即说明服务成功开启：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI0NzIwOTM5?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+</li>
+<li><p>使用Node.js注册</p>
+<p>将上面Node.js注册服务部分代码保存到index.js，然后开启终端输入：node index.js，看到类似下面的结果说明服务成功注册：<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MTQ1NDMw?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+</li>
+<li><p>查看注册服务</p>
+<p>浏览器输入<a href="http://localhost:1111/，可以看到服务已经成功注册了：" target="_blank" rel="noopener">http://localhost:1111/，可以看到服务已经成功注册了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1MzU2MjEz?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+</li>
+<li><p>测试express服务</p>
+<p>浏览器输入<a href="http://localhost:3333，可以看到服务已经挂起来了：">http://localhost:3333，可以看到服务已经挂起来了：</a><br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjIyMTI1NjI0Mjky?x-oss-process=image/format,png" alt="这里写图片描述"></p>
+<p>至此，Node.js成功引入Spring Cloud，看到这里的你也赶快动手试试吧，祝你成功！</p>
+</li>
+</ul>
+</li>
 </ul>
 ]]></content>
       <categories>
-        <category>编程开发</category>
+        <category>编程语言</category>
       </categories>
       <tags>
-        <tag>Android</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>sqlite中strftime()函数的用法</title>
+    <url>/2016/12/15/sqlite%E4%B8%ADstrftime-%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<h6 id="记下，以后用得着"><a href="#记下，以后用得着" class="headerlink" title="记下，以后用得着"></a>记下，以后用得着</h6><p>strftime()函数可以把YYYY-MM-DD HH:MM:SS格式的日期字符串转换成其它形式的字符串。<br>strftime()的语法是strftime(格式, 日期/时间, 修正符, 修正符, …)</p>
+<p>它可以用以下的符号对日期和时间进行格式化：<br>%d 日期, 01-31<br>%f 小数形式的秒，SS.SSS<br>%H 小时, 00-23<br>%j 算出某一天是该年的第几天，001-366<br>%m 月份，00-12<br>%M 分钟, 00-59<br>%s 从1970年1月1日到现在的秒数<br>%S 秒, 00-59<br>%w 星期, 0-6 (0是星期天)<br>%W 算出某一天属于该年的第几周, 01-53<br>%Y 年, YYYY<br>%% 百分号</p>
+<p>strftime()的用法举例如下：</p>
+<p>select strftime(‘%Y-%m-%d %H:%M:%S’,’now’,’localtime’);<br>结果：2016-12-15 12:43:08<br>其实更好的用法是这样的,比如统,本月或本年的支出:<br>select strftime(‘%Y-%m’,日期) as 月份,sum(支出) as 月支出 from 流水帐 group by 月份;</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于phpstorm post表单数据无法获取的问题</title>
+    <url>/2016/08/23/%E5%85%B3%E4%BA%8Ephpstorm-post%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E6%97%A0%E6%B3%95%E8%8E%B7%E5%8F%96%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<ol>
+<li>问题原因<ul>
+<li>直接用phpstorm 运行PHP的话，他会自带端口，只要把localhost前面的端口去掉就行了。</li>
+</ul>
+</li>
+<li>解决办法<ul>
+<li>依次进入File -&gt;Settings -&gt;Build,Execution,Deployment -&gt;Deployment</li>
+<li>点击右边加号,然后填写Name为localhost，Type为选择In place</li>
+<li>然后右边选择Mappings,将Local path选择Apache的htdocsl路径即可</li>
+</ul>
+</li>
+<li>注意事项<ul>
+<li>运行的php文件必须放在Apache的htdocs文件夹下面，否则Apache无法会报404找不到文件错误</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
       </tags>
   </entry>
   <entry>
@@ -556,30 +560,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2016/08/22/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安卓不root访问data目录文件</title>
     <url>/2017/05/10/%E5%AE%89%E5%8D%93%E4%B8%8Droot%E8%AE%BF%E9%97%AEdata%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>一般情况下，我们调试程序的时候，需要查看程序的一些数据，我们会想到使用adb命令来完成，可能你会这样来访问：</p>
@@ -596,6 +576,26 @@
 <p>2、然后按照如下方式进行访问：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">C:\Users\Wihatow\Desktop&gt;adb shell</span><br><span class="line">shell@QK1505_A01:/ $ run-as com.hhwy.ydOA</span><br><span class="line">shell@QK1505_A01:/data/data/com.hhwy.ydOA $ ls</span><br><span class="line">app_outdex</span><br><span class="line">cache</span><br><span class="line">code_cache</span><br><span class="line">files</span><br><span class="line">lib</span><br><span class="line">program_cache</span><br><span class="line">qt-reserved-files</span><br><span class="line">shared_prefs</span><br><span class="line">shell@QK1505_A01:/data/data/com.hhwy.ydOA $</span><br></pre></td></tr></table></figure>
 <p>正如上面你所看到的，能够访问程序数据了。</p>
+]]></content>
+      <categories>
+        <category>编程开发</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>安卓运行时错误java.lang.NoClassDefFoundError分析</title>
+    <url>/2017/09/01/%E5%AE%89%E5%8D%93%E8%BF%90%E8%A1%8C%E6%97%B6%E9%94%99%E8%AF%AFjava-lang-NoClassDefFoundError%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>今天在调试项目的时候，突然发现项目在我的手机上一切正常，但是在另一个手机上却老是运行时崩溃，报java.lang.NoClassDefFoundError这个错误，这个错误一般都是类名或者包名不对导致找不到类的问题。于是各种debug，搞了两个点儿，仍旧没有发现问题所在，可以说笔者当时内心是崩溃的！好在最后终于解决了问题，所以写下此文，希望能够帮助遇到同样问题的开发者。</p>
+<p>在安卓开发中，Java虚拟机Dalvik在执行DEX格式的Java应用程序时，使用原生类型short来索引DEX文件中的方法。这意味着单个DEX文件可被引用的方法总数被限制为65536，当应用的方法数超过这一限制时，就要考虑多个dex打包了。在5.0之后的系统中不会存在问题，已经默认支持多个dex了，但是在5.0之前的系统中，编译是不会出现问题的，运行的时候会出现java.lang.NoClassDefFoundError这个错误。知道了问题所在就好办了，解决的方法有一下几种：</p>
+<ul>
+<li>修改AndroidManifest.xml<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line">    android:name="android.support.multidex.MultiDexApplication" &lt;!--主要是这一行--&gt;</span><br><span class="line">    tools:replace="android:icon, android:theme,android:label"</span><br><span class="line">    android:theme="@style/AppTheme"&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>添加Application类并继承MultiDexApplication类<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">MultiDexApplication</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.onCreate();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li>自定义Application类并重写attachBaseContext(Context base)方法<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.attachBaseContext(base);</span><br><span class="line">           MultiDex.install(base);<span class="comment">//主要是添加这一行</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li>配置gradle<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">25</span></span><br><span class="line">    buildToolsVersion <span class="string">"25.0.2"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"com.hhwy.testwebview"</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">25</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">        multiDexEnabled <span class="keyword">true</span><span class="comment">//主要是这一行的配置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">   <span class="keyword">compile</span> <span class="string">'com.android.support:multidex:1.0.0'</span><span class="comment">//添加依赖</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
       <categories>
         <category>编程开发</category>
