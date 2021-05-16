@@ -30,25 +30,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux终端中sudo显示无法解析主机</title>
-    <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
-    <content><![CDATA[<blockquote>
-<p>原因分析  </p>
-</blockquote>
-<p>主要是因为用户在设置中修改了主机名，而本地hosts映射的还是之前的主机名，<br>所以导致无法找到新的主机名。  </p>
-<blockquote>
-<p>解决方法</p>
-</blockquote>
-<p>打开/etc/hosts文件，修改对应的主机名</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1       localhost                                 </span><br><span class="line">127.0.1.1       xxx修改后的主机名 <span class="comment">#pc190565-ThinkCentre-M720t-N000，这个是之前的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::1     ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Linux教程</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux之间共享与挂在配置</title>
     <url>/2019/11/08/Linux%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E4%B8%8E%E6%8C%82%E5%9C%A8%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<blockquote>
@@ -70,6 +51,25 @@
 <p>挂载共享</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 安装cifs工具</span></span><br><span class="line">sudo apt install cifs-utils</span><br><span class="line"></span><br><span class="line"><span class="comment"># 挂载，以下xxx为ip，***为用户名，@@@为密码,如共享/home/pc190565,则以下的共享名为190565</span></span><br><span class="line">sudo mount //xxx/共享名 /本地挂载的文件夹（需要创建） -t cifs -o username=***,password=@@@,rw,vers=2.0,dir_mode=0777,file_mode=0777 --verbose</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Linux教程</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux终端中sudo显示无法解析主机</title>
+    <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>原因分析  </p>
+</blockquote>
+<p>主要是因为用户在设置中修改了主机名，而本地hosts映射的还是之前的主机名，<br>所以导致无法找到新的主机名。  </p>
+<blockquote>
+<p>解决方法</p>
+</blockquote>
+<p>打开/etc/hosts文件，修改对应的主机名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1       localhost                                 </span><br><span class="line">127.0.1.1       xxx修改后的主机名 <span class="comment">#pc190565-ThinkCentre-M720t-N000，这个是之前的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::1     ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Linux教程</category>
       </categories>
@@ -411,6 +411,21 @@
       </tags>
   </entry>
   <entry>
+    <title>sqlite中strftime()函数的用法</title>
+    <url>/2016/12/15/sqlite%E4%B8%ADstrftime-%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<h6 id="记下，以后用得着"><a href="#记下，以后用得着" class="headerlink" title="记下，以后用得着"></a>记下，以后用得着</h6><p>strftime()函数可以把YYYY-MM-DD HH:MM:SS格式的日期字符串转换成其它形式的字符串。<br>strftime()的语法是strftime(格式, 日期/时间, 修正符, 修正符, …)</p>
+<p>它可以用以下的符号对日期和时间进行格式化：<br>%d 日期, 01-31<br>%f 小数形式的秒，SS.SSS<br>%H 小时, 00-23<br>%j 算出某一天是该年的第几天，001-366<br>%m 月份，00-12<br>%M 分钟, 00-59<br>%s 从1970年1月1日到现在的秒数<br>%S 秒, 00-59<br>%w 星期, 0-6 (0是星期天)<br>%W 算出某一天属于该年的第几周, 01-53<br>%Y 年, YYYY<br>%% 百分号</p>
+<p>strftime()的用法举例如下：</p>
+<p>select strftime(‘%Y-%m-%d %H:%M:%S’,’now’,’localtime’);<br>结果：2016-12-15 12:43:08<br>其实更好的用法是这样的,比如统,本月或本年的支出:<br>select strftime(‘%Y-%m’,日期) as 月份,sum(支出) as 月支出 from 流水帐 group by 月份;</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Eureka将Node.js引入Spring Cloud</title>
     <url>/2016/12/22/%E4%BD%BF%E7%94%A8Eureka%E5%B0%86Node.js%E5%BC%95%E5%85%A5Spring%20Cloud/</url>
     <content><![CDATA[<ul>
@@ -459,21 +474,6 @@
       </categories>
       <tags>
         <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>sqlite中strftime()函数的用法</title>
-    <url>/2016/12/15/sqlite%E4%B8%ADstrftime-%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95/</url>
-    <content><![CDATA[<h6 id="记下，以后用得着"><a href="#记下，以后用得着" class="headerlink" title="记下，以后用得着"></a>记下，以后用得着</h6><p>strftime()函数可以把YYYY-MM-DD HH:MM:SS格式的日期字符串转换成其它形式的字符串。<br>strftime()的语法是strftime(格式, 日期/时间, 修正符, 修正符, …)</p>
-<p>它可以用以下的符号对日期和时间进行格式化：<br>%d 日期, 01-31<br>%f 小数形式的秒，SS.SSS<br>%H 小时, 00-23<br>%j 算出某一天是该年的第几天，001-366<br>%m 月份，00-12<br>%M 分钟, 00-59<br>%s 从1970年1月1日到现在的秒数<br>%S 秒, 00-59<br>%w 星期, 0-6 (0是星期天)<br>%W 算出某一天属于该年的第几周, 01-53<br>%Y 年, YYYY<br>%% 百分号</p>
-<p>strftime()的用法举例如下：</p>
-<p>select strftime(‘%Y-%m-%d %H:%M:%S’,’now’,’localtime’);<br>结果：2016-12-15 12:43:08<br>其实更好的用法是这样的,比如统,本月或本年的支出:<br>select strftime(‘%Y-%m’,日期) as 月份,sum(支出) as 月支出 from 流水帐 group by 月份;</p>
-]]></content>
-      <categories>
-        <category>编程语言</category>
-      </categories>
-      <tags>
-        <tag>SQL</tag>
       </tags>
   </entry>
   <entry>

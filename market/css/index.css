@@ -1,0 +1,48 @@
+.verticalCenter {
+    display: flex;
+    align-items: center;
+}
+
+.horizentoalCenter{
+    display: flex;
+    justify-content: center;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.margin5px {
+    margin: 5px;
+}
+
+.scroll {
+    overflow: auto;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    overflow: auto;
+    padding: 5px;
+}
+
+.column{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.row *{
+    margin: auto;
+}

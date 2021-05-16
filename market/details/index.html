@@ -38,19 +38,19 @@
   </script>
 
 
-  <meta name="description" content="Market           body {       padding: 5px;     }                 window.onload &#x3D; function () {       window.location.href &#x3D; &quot;list&quot;;     }">
+  <meta name="description" content="Detail                             #screenshots {             margin: auto;             white-space: nowrap;             overflow: auto;             flex-wrap: nowrap;             te">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Wihatow&#39;s Blog">
-<meta property="og:url" content="https://wihatow.github.io/market/index.html">
+<meta property="og:url" content="https://wihatow.github.io/market/details/index.html">
 <meta property="og:site_name" content="Wihatow&#39;s Blog">
-<meta property="og:description" content="Market           body {       padding: 5px;     }                 window.onload &#x3D; function () {       window.location.href &#x3D; &quot;list&quot;;     }">
+<meta property="og:description" content="Detail                             #screenshots {             margin: auto;             white-space: nowrap;             overflow: auto;             flex-wrap: nowrap;             te">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-05-09T11:16:30.267Z">
-<meta property="article:modified_time" content="2021-04-03T06:12:56.357Z">
+<meta property="article:published_time" content="2021-04-03T06:12:56.356Z">
+<meta property="article:modified_time" content="2021-04-03T06:12:56.356Z">
 <meta property="article:author" content="Wihatow">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://wihatow.github.io/market/">
+<link rel="canonical" href="https://wihatow.github.io/market/details/">
 
 
 <script class="page-configurations">
@@ -355,6 +355,12 @@
 
 <div class="post-meta">
   
+  <ul class="breadcrumb">
+          
+            <li><a href="/market/">MARKET</a></li>
+          <li>DETAILS</li>
+        
+  </ul>
 
 </div>
 
@@ -368,26 +374,111 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Market</title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <style>
-    body {
-      padding: 5px;
-    }
-  </style>
-  <link rel="stylesheet" href="css/index.css">
-  <script src="utils/utils.js"></script>
-  <script>
-    window.onload = function () {
-      window.location.href = "list";
-    }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <script src="../utils/utils.js"></script>
+    <script src="../utils/qrcode.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        #screenshots {
+            margin: auto;
+            white-space: nowrap;
+            overflow: auto;
+            flex-wrap: nowrap;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+    <script>
+        window.onload = async function () {
+            // var application = window.opener.document.currentApp;
+            var args = parseQuery(location.search);
+            var application = await parseApplication(args.name, args.version);
+            initView(application);
+        }
+
+        function initView(application) {
+            var item = generateAppItem(application, true);
+            var container = document.getElementById("container");
+            container.appendChild(item);
+
+            var qrcode = document.createElement("div");
+            container.appendChild(qrcode);
+
+
+            var qrcode = new QRCode(qrcode, {
+                text: application.url,
+                width: 100,
+                height: 100,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            // qrcode.clear(); // clear the code.
+            // qrcode.makeCode("http://naver.com"); // make another code.
+
+            for (let i = 0; i < application.screenshots.length; i++) {
+                var img = document.createElement("img");
+                img.src = application.screenshots[i];
+                img.style.width = "200px";
+                img.style.margin = "5px";
+                img.style.cursor = "pointer";
+                img.onclick = function (event) {
+                    window.open(application.screenshots[i]);
+                }
+                document.getElementById("screenshots").appendChild(img);
+            }
+
+            var detail = document.getElementById("detail");
+            var changed = document.createElement("div");
+            var changes = application.changed ? application.changed : [];
+
+            if (changes.length > 0) {
+                var tag = document.createElement("h5");
+                tag.innerText = "更新内容";
+                detail.appendChild(tag);
+            } else {
+                detail.style.width = "0px";
+            }
+
+            for (let j = 0; j < changes.length; j++) {
+                var log = document.createElement("div");
+                log.innerText = changes[j];
+                changed.appendChild(log);
+            }
+            detail.appendChild(changed);
+
+            detail = document.getElementById("description");
+            if (application.description) {
+                var tag = document.createElement("h5");
+                tag.innerText = "应用信息";
+                detail.appendChild(tag);
+
+                var description = document.createElement("lable");
+                description.innerText = application.description;
+                detail.appendChild(description);
+            } else {
+                detail.style.width = "0px";
+            }
+
+            var history = document.createElement("a");
+            history.innerText = "其他版本";
+            history.href = application.spread.replace("details", "list");
+            document.getElementById("other").appendChild(history);
+        }
+    </script>
 </head>
 
 <body>
+    <div id="container" class="row">
+    </div>
+    <div id="screenshots" class="row1"></div>
+    <div class="column">
+        <div id="other"></div>
+        <div id="detail"></div>
+        <div id="description"></div>
+    </div>
 </body>
 
 </html>
@@ -397,6 +488,12 @@
       
     </div>
     
+  <ul class="breadcrumb">
+          
+            <li><a href="/market/">MARKET</a></li>
+          <li>DETAILS</li>
+        
+  </ul>
 
     
     
