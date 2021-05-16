@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linux中文件查找</title>
-    <url>/2019/11/08/Linux%E4%B8%AD%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE/</url>
-    <content><![CDATA[<blockquote>
-<p>从目录中匹配文件名  </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find | grep xxxx</span><br></pre></td></tr></table></figure>
-
-<p>xxx文件需要匹配的关键字</p>
-<blockquote>
-<p>从目录中匹配文件内容</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -nr xxxx</span><br></pre></td></tr></table></figure>
-
-<p>xxx为文件内容的关键字</p>
-<blockquote>
-<p>从目录中匹配文件名，然后再从匹配结果中匹配文件内容</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find | grep xxx | grep -nr ***</span><br></pre></td></tr></table></figure>
-
-<p>xxx为文件名匹配关键字，***为文件内容匹配关键字</p>
-]]></content>
-      <categories>
-        <category>Linux教程</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux之间共享与挂在配置</title>
     <url>/2019/11/08/Linux%E4%B9%8B%E9%97%B4%E5%85%B1%E4%BA%AB%E4%B8%8E%E6%8C%82%E5%9C%A8%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<blockquote>
@@ -59,17 +30,27 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux终端中sudo显示无法解析主机</title>
-    <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
+    <title>Linux中文件查找</title>
+    <url>/2019/11/08/Linux%E4%B8%AD%E6%96%87%E4%BB%B6%E6%9F%A5%E6%89%BE/</url>
     <content><![CDATA[<blockquote>
-<p>原因分析  </p>
+<p>从目录中匹配文件名  </p>
 </blockquote>
-<p>主要是因为用户在设置中修改了主机名，而本地hosts映射的还是之前的主机名，<br>所以导致无法找到新的主机名。  </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find | grep xxxx</span><br></pre></td></tr></table></figure>
+
+<p>xxx文件需要匹配的关键字</p>
 <blockquote>
-<p>解决方法</p>
+<p>从目录中匹配文件内容</p>
 </blockquote>
-<p>打开/etc/hosts文件，修改对应的主机名</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1       localhost                                 </span><br><span class="line">127.0.1.1       xxx修改后的主机名 <span class="comment">#pc190565-ThinkCentre-M720t-N000，这个是之前的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::1     ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -nr xxxx</span><br></pre></td></tr></table></figure>
+
+<p>xxx为文件内容的关键字</p>
+<blockquote>
+<p>从目录中匹配文件名，然后再从匹配结果中匹配文件内容</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">find | grep xxx | grep -nr ***</span><br></pre></td></tr></table></figure>
+
+<p>xxx为文件名匹配关键字，***为文件内容匹配关键字</p>
+]]></content>
       <categories>
         <category>Linux教程</category>
       </categories>
@@ -95,28 +76,22 @@
       </tags>
   </entry>
   <entry>
-    <title>Object-c处理简单数列求值问题</title>
-    <url>/2016/10/20/Object-c%E5%A4%84%E7%90%86%E7%AE%80%E5%8D%95%E6%95%B0%E5%88%97%E6%B1%82%E5%80%BC%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><hr>
-<p>看到这样的递推公式就可以考虑使用递归来实现数列的求值问题。当然通过递推公式我们比较容易得到:</p>
-<ul>
-<li>f(n) = 2*f(n-1) + f(n-2);</li>
-</ul>
-<p>于是使用递归进行求值：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 1)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return 2*f(n-1) + f(n-2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<p>当然，并不是所有人通过递推公式都能得到与上面同样的公式，也许他们得到了下面的公式：</p>
-<ul>
-<li>f(n) = f(n+2) - 2*f(n+1)</li>
-</ul>
-<p>当然他们得到的公式并没有错，只不过是从另一个角度进行的推导，但是通过这个公式是无法使用递归得到f(10)的值的。也许有这么一道题：</p>
-<h3 id="已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><p>这样一来就可以使用这个递推公式通过递归的方法得到f(10)的结果了，可以参考一下程序：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 20) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 21)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return f(n+2) - 2*f(n+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <title>Linux终端中sudo显示无法解析主机</title>
+    <url>/2019/11/08/Linux%E7%BB%88%E7%AB%AFsudo%E5%91%BD%E4%BB%A4%E6%98%BE%E7%A4%BA%E6%97%A0%E6%B3%95%E8%A7%A3%E6%9E%90%E4%B8%BB%E6%9C%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>原因分析  </p>
+</blockquote>
+<p>主要是因为用户在设置中修改了主机名，而本地hosts映射的还是之前的主机名，<br>所以导致无法找到新的主机名。  </p>
+<blockquote>
+<p>解决方法</p>
+</blockquote>
+<p>打开/etc/hosts文件，修改对应的主机名</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1       localhost                                 </span><br><span class="line">127.0.1.1       xxx修改后的主机名 <span class="comment">#pc190565-ThinkCentre-M720t-N000，这个是之前的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The following lines are desirable for IPv6 capable hosts</span></span><br><span class="line">::1     ip6-localhost ip6-loopback</span><br><span class="line">fe00::0 ip6-localnet</span><br><span class="line">ff00::0 ip6-mcastprefix</span><br><span class="line">ff02::1 ip6-allnodes</span><br><span class="line">ff02::2 ip6-allrouters</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>编程语言</category>
+        <category>Linux教程</category>
       </categories>
       <tags>
-        <tag>iOS</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -294,26 +269,6 @@
       </tags>
   </entry>
   <entry>
-    <title>git查看中文文件名乱码问题</title>
-    <url>/2019/11/13/git%E6%9F%A5%E7%9C%8B%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<blockquote>
-<p>执行命令   </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里只修改了当前git仓库，若要全局修改讲local改为global</span></span><br><span class="line">git config --<span class="built_in">local</span> core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>修改配置   </p>
-</blockquote>
-<p>在当前仓下的.get/config进行如下修改：   </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加以下配置</span></span><br><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Git配置</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>git配置sshkey</title>
     <url>/2019/11/13/git%E9%85%8D%E7%BD%AEsshkey/</url>
     <content><![CDATA[<blockquote>
@@ -333,27 +288,48 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2016/08/22/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-]]></content>
+    <title>Object-c处理简单数列求值问题</title>
+    <url>/2016/10/20/Object-c%E5%A4%84%E7%90%86%E7%AE%80%E5%8D%95%E6%95%B0%E5%88%97%E6%B1%82%E5%80%BC%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-0-1，f-1-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(0) = 1，f(1) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><hr>
+<p>看到这样的递推公式就可以考虑使用递归来实现数列的求值问题。当然通过递推公式我们比较容易得到:</p>
+<ul>
+<li>f(n) = 2*f(n-1) + f(n-2);</li>
+</ul>
+<p>于是使用递归进行求值：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 1)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return 2*f(n-1) + f(n-2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>当然，并不是所有人通过递推公式都能得到与上面同样的公式，也许他们得到了下面的公式：</p>
+<ul>
+<li>f(n) = f(n+2) - 2*f(n+1)</li>
+</ul>
+<p>当然他们得到的公式并没有错，只不过是从另一个角度进行的推导，但是通过这个公式是无法使用递归得到f(10)的值的。也许有这么一道题：</p>
+<h3 id="已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。"><a href="#已知f-20-1，f-21-4，f-n-2-2-f-n-1-f-n-，求f-10-的值。" class="headerlink" title="已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。"></a>已知f(20) = 1，f(21) = 4，f(n+2) = 2*f(n+1) + f(n)，求f(10)的值。</h3><p>这样一来就可以使用这个递推公式通过递归的方法得到f(10)的结果了，可以参考一下程序：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int f(int n)&#123;</span><br><span class="line">    if (n &#x3D;&#x3D; 20) &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;else if(n &#x3D;&#x3D; 21)&#123;</span><br><span class="line">        return 4;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return f(n+2) - 2*f(n+1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>hexo</category>
+        <category>编程语言</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>git查看中文文件名乱码问题</title>
+    <url>/2019/11/13/git%E6%9F%A5%E7%9C%8B%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<blockquote>
+<p>执行命令   </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里只修改了当前git仓库，若要全局修改讲local改为global</span></span><br><span class="line">git config --<span class="built_in">local</span> core.quotepath <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>修改配置   </p>
+</blockquote>
+<p>在当前仓下的.get/config进行如下修改：   </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加以下配置</span></span><br><span class="line">[core]</span><br><span class="line">    quotepath = <span class="literal">false</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Git配置</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -379,6 +355,30 @@
       </categories>
       <tags>
         <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2016/08/22/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -560,6 +560,26 @@
       </tags>
   </entry>
   <entry>
+    <title>安卓运行时错误java.lang.NoClassDefFoundError分析</title>
+    <url>/2017/09/01/%E5%AE%89%E5%8D%93%E8%BF%90%E8%A1%8C%E6%97%B6%E9%94%99%E8%AF%AFjava-lang-NoClassDefFoundError%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>今天在调试项目的时候，突然发现项目在我的手机上一切正常，但是在另一个手机上却老是运行时崩溃，报java.lang.NoClassDefFoundError这个错误，这个错误一般都是类名或者包名不对导致找不到类的问题。于是各种debug，搞了两个点儿，仍旧没有发现问题所在，可以说笔者当时内心是崩溃的！好在最后终于解决了问题，所以写下此文，希望能够帮助遇到同样问题的开发者。</p>
+<p>在安卓开发中，Java虚拟机Dalvik在执行DEX格式的Java应用程序时，使用原生类型short来索引DEX文件中的方法。这意味着单个DEX文件可被引用的方法总数被限制为65536，当应用的方法数超过这一限制时，就要考虑多个dex打包了。在5.0之后的系统中不会存在问题，已经默认支持多个dex了，但是在5.0之前的系统中，编译是不会出现问题的，运行的时候会出现java.lang.NoClassDefFoundError这个错误。知道了问题所在就好办了，解决的方法有一下几种：</p>
+<ul>
+<li>修改AndroidManifest.xml<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line">    android:name="android.support.multidex.MultiDexApplication" &lt;!--主要是这一行--&gt;</span><br><span class="line">    tools:replace="android:icon, android:theme,android:label"</span><br><span class="line">    android:theme="@style/AppTheme"&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>添加Application类并继承MultiDexApplication类<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">MultiDexApplication</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.onCreate();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li>自定义Application类并重写attachBaseContext(Context base)方法<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.attachBaseContext(base);</span><br><span class="line">           MultiDex.install(base);<span class="comment">//主要是添加这一行</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+<li>配置gradle<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">25</span></span><br><span class="line">    buildToolsVersion <span class="string">"25.0.2"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"com.hhwy.testwebview"</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">25</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">        multiDexEnabled <span class="keyword">true</span><span class="comment">//主要是这一行的配置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">   <span class="keyword">compile</span> <span class="string">'com.android.support:multidex:1.0.0'</span><span class="comment">//添加依赖</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程开发</category>
+      </categories>
+      <tags>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>安卓不root访问data目录文件</title>
     <url>/2017/05/10/%E5%AE%89%E5%8D%93%E4%B8%8Droot%E8%AE%BF%E9%97%AEdata%E7%9B%AE%E5%BD%95%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<p>一般情况下，我们调试程序的时候，需要查看程序的一些数据，我们会想到使用adb命令来完成，可能你会这样来访问：</p>
@@ -576,26 +596,6 @@
 <p>2、然后按照如下方式进行访问：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">C:\Users\Wihatow\Desktop&gt;adb shell</span><br><span class="line">shell@QK1505_A01:/ $ run-as com.hhwy.ydOA</span><br><span class="line">shell@QK1505_A01:/data/data/com.hhwy.ydOA $ ls</span><br><span class="line">app_outdex</span><br><span class="line">cache</span><br><span class="line">code_cache</span><br><span class="line">files</span><br><span class="line">lib</span><br><span class="line">program_cache</span><br><span class="line">qt-reserved-files</span><br><span class="line">shared_prefs</span><br><span class="line">shell@QK1505_A01:/data/data/com.hhwy.ydOA $</span><br></pre></td></tr></table></figure>
 <p>正如上面你所看到的，能够访问程序数据了。</p>
-]]></content>
-      <categories>
-        <category>编程开发</category>
-      </categories>
-      <tags>
-        <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>安卓运行时错误java.lang.NoClassDefFoundError分析</title>
-    <url>/2017/09/01/%E5%AE%89%E5%8D%93%E8%BF%90%E8%A1%8C%E6%97%B6%E9%94%99%E8%AF%AFjava-lang-NoClassDefFoundError%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<p>今天在调试项目的时候，突然发现项目在我的手机上一切正常，但是在另一个手机上却老是运行时崩溃，报java.lang.NoClassDefFoundError这个错误，这个错误一般都是类名或者包名不对导致找不到类的问题。于是各种debug，搞了两个点儿，仍旧没有发现问题所在，可以说笔者当时内心是崩溃的！好在最后终于解决了问题，所以写下此文，希望能够帮助遇到同样问题的开发者。</p>
-<p>在安卓开发中，Java虚拟机Dalvik在执行DEX格式的Java应用程序时，使用原生类型short来索引DEX文件中的方法。这意味着单个DEX文件可被引用的方法总数被限制为65536，当应用的方法数超过这一限制时，就要考虑多个dex打包了。在5.0之后的系统中不会存在问题，已经默认支持多个dex了，但是在5.0之前的系统中，编译是不会出现问题的，运行的时候会出现java.lang.NoClassDefFoundError这个错误。知道了问题所在就好办了，解决的方法有一下几种：</p>
-<ul>
-<li>修改AndroidManifest.xml<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line">    android:name="android.support.multidex.MultiDexApplication" &lt;!--主要是这一行--&gt;</span><br><span class="line">    tools:replace="android:icon, android:theme,android:label"</span><br><span class="line">    android:theme="@style/AppTheme"&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-<li>添加Application类并继承MultiDexApplication类<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">MultiDexApplication</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.onCreate();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
-<li>自定义Application类并重写attachBaseContext(Context base)方法<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//注意在AndroidManifest.xml中配置</span></span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span></span>&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">super</span>.attachBaseContext(base);</span><br><span class="line">           MultiDex.install(base);<span class="comment">//主要是添加这一行</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
-<li>配置gradle<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">25</span></span><br><span class="line">    buildToolsVersion <span class="string">"25.0.2"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"com.hhwy.testwebview"</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">25</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">        multiDexEnabled <span class="keyword">true</span><span class="comment">//主要是这一行的配置</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">   <span class="keyword">compile</span> <span class="string">'com.android.support:multidex:1.0.0'</span><span class="comment">//添加依赖</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
 ]]></content>
       <categories>
         <category>编程开发</category>

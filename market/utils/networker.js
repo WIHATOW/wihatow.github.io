@@ -10,13 +10,15 @@ onerror = function () {
 
 function request(url, method, body, header, username, password) {
     var http = new XMLHttpRequest();
+    method = method || "get";
+    http.open(method, url, false, username, password);
+    http.setRequestHeader("Access-Control-Allow-Origin", "*");
+    http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     if (header) {
         for (let key in header) {
             http.setRequestHeader(key, header[key]);
         }
     }
-    method = method || "get";
-    http.open(method, url, false, username, password);
     http.send(body);
     return http.responseText;
 }

@@ -11,7 +11,6 @@ function readJson(file, callback) {
 }
 
 function request(url, success, error, method, body, header, username, password) {
-    console.log("____11_______"+window.location.href+"________"+window.location)
     var worker = new Worker(window.location.origin + "/market/utils/networker.js");
     worker.onerror = error;
     worker.onmessage = function (e) {
@@ -72,7 +71,7 @@ async function parseApplication(name, version) {
         suffix: application.suffix,
         screenshots: [
         ],
-        spread: window.location.origin + "/" + application.spread
+        spread: window.location.origin + "/markert/" + application.spread
     };
     app.screenshots = path + application.screenshots.join("," + path);
     app.screenshots = app.screenshots.split(",");
@@ -83,7 +82,7 @@ async function parseApplication(name, version) {
 }
 
 async function parseApplications() {
-    var res = await readJsonSync(window.location.origin + "/api/applications.json");
+    var res = await readJsonSync("https://code.aliyun.com/wihatow/Market/raw/master/api/applications.json");
     var applications = {};
     /**
      * web界面使用数据结构如下：
